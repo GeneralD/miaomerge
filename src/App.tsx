@@ -6,31 +6,58 @@ import './App.css';
 import { FileSelector } from './components/FileSelector';
 import { SlotMapper } from './components/SlotMapper';
 import { ReviewSummary } from './components/ReviewSummary';
+import { LEDPreview } from './components/LEDPreview';
 import { LEDConfiguration, FileInfo, MergeMapping, MergeStep } from './types';
+import { isTauri } from './utils/platform';
 
 function App() {
   const [currentStep, setCurrentStep] = useState<MergeStep>('selectBase');
   const [baseConfig, setBaseConfig] = useState<LEDConfiguration | null>(null);
+  const [baseFileName, setBaseFileName] = useState<string | null>(null);
   const [additionalFiles, setAdditionalFiles] = useState<FileInfo[]>([]);
   const [mappings, setMappings] = useState<MergeMapping[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleBaseFileSelect = async (file: FileInfo) => {
+  const handleBaseFileSelect = async (file: FileInfo, content?: string) => {
+    console.log('handleBaseFileSelect called with:', file, 'content length:', content?.length);
     try {
       setIsLoading(true);
       setError(null);
       
-      // Load the configuration from the backend
-      const config = await invoke<LEDConfiguration>('load_config', { path: file.path });
+      let config: LEDConfiguration;
       
+      if (isTauri()) {
+        // Load the configuration from the backend (Tauri)
+        config = await invoke<LEDConfiguration>('load_config', { path: file.path });
+      } else {
+        // Parse the JSON content directly (Web)
+        if (!content) {
+          throw new Error('No file content provided for web version');
+        }
+        config = JSON.parse(content);
+      }
+      
+      console.log('Setting baseConfig:', config);
+      console.log('Setting baseFileName:', file.name);
       setBaseConfig(config);
-      setCurrentStep('configureMappings');
+      setBaseFileName(file.name);
     } catch (err) {
+      console.error('App - Error loading config:', err);
       setError(`Failed to load configuration: ${err}`);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleProceedToMapping = () => {
+    setCurrentStep('configureMappings');
+  };
+
+  const handleReselectBase = () => {
+    console.log('handleReselectBase called - resetting state');
+    setBaseConfig(null);
+    setBaseFileName(null);
   };
 
   const handleMappingComplete = (newMappings: MergeMapping[]) => {
@@ -52,23 +79,43 @@ function App() {
       setIsLoading(true);
       setError(null);
 
-      // Merge configurations on the backend
-      const mergedConfig = await invoke<LEDConfiguration>('merge_configs', {
-        baseConfig,
-        mappings
-      });
+      let mergedConfig: LEDConfiguration;
 
-      // Save the merged configuration
-      const savePath = await save({
-        filters: [{
-          name: 'JSON',
-          extensions: ['json']
-        }],
-        defaultPath: `merged_${new Date().toISOString().slice(0, 10)}.json`
-      });
+      if (isTauri()) {
+        // Merge configurations on the backend (Tauri)
+        mergedConfig = await invoke<LEDConfiguration>('merge_configs', {
+          baseConfig,
+          mappings
+        });
 
-      if (savePath) {
-        await writeTextFile(savePath, JSON.stringify(mergedConfig, null, 2));
+        // Save the merged configuration using Tauri
+        const savePath = await save({
+          filters: [{
+            name: 'JSON',
+            extensions: ['json']
+          }],
+          defaultPath: `merged_${new Date().toISOString().slice(0, 10)}.json`
+        });
+
+        if (savePath) {
+          await writeTextFile(savePath, JSON.stringify(mergedConfig, null, 2));
+          setCurrentStep('complete');
+        }
+      } else {
+        // Simple merge for web version (keep original for now)
+        mergedConfig = baseConfig!;
+        
+        // Download the file using web APIs
+        const blob = new Blob([JSON.stringify(mergedConfig, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `merged_${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
         setCurrentStep('complete');
       }
     } catch (err) {
@@ -81,6 +128,7 @@ function App() {
   const resetApp = () => {
     setCurrentStep('selectBase');
     setBaseConfig(null);
+    setBaseFileName(null);
     setAdditionalFiles([]);
     setMappings([]);
     setError(null);
@@ -124,10 +172,34 @@ function App() {
 
       <div className="content">
         {currentStep === 'selectBase' && (
-          <FileSelector
-            title="Select Base Configuration"
-            onFileSelect={handleBaseFileSelect}
-          />
+          <>
+            <FileSelector
+              title="Select Base Configuration"
+              onFileSelect={handleBaseFileSelect}
+              selectedFile={baseFileName}
+            />
+            {(() => {
+              console.log('Rendering - baseConfig exists:', !!baseConfig, 'baseFileName:', baseFileName);
+              return baseConfig && (
+                <>
+                  <div className="preview-section">
+                    <h3>LED Preview</h3>
+                    <LEDPreview config={baseConfig} selectedPage={5} displayName="LED 1 Preview" />
+                    <LEDPreview config={baseConfig} selectedPage={6} displayName="LED 2 Preview" />
+                    <LEDPreview config={baseConfig} selectedPage={7} displayName="LED 3 Preview" />
+                  </div>
+                  <div className="step-navigation">
+                    <button onClick={handleReselectBase} className="reselect-button">
+                      ファイルを選び直す
+                    </button>
+                    <button onClick={handleProceedToMapping} className="continue-button">
+                      次に進む
+                    </button>
+                  </div>
+                </>
+              );
+            })()}
+          </>
         )}
 
         {currentStep === 'configureMappings' && baseConfig && (
