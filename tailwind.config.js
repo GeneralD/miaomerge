@@ -39,9 +39,6 @@ export default {
 			gridTemplateRows: {
 				led: "repeat(5, minmax(0, 1fr))",
 			},
-			aspectRatio: {
-				led: "8 / 1",
-			},
 		},
 	},
 	plugins: [],

@@ -115,7 +115,7 @@ export function LEDPreview({
 				</h4>
 				<span className="text-gray-500 text-sm">{getFrameInfo()}</span>
 			</div>
-			<div className="grid grid-cols-led grid-rows-led gap-px bg-black p-2 rounded-lg aspect-led max-w-full overflow-hidden">
+			<div className="grid grid-cols-led grid-rows-led gap-px bg-black p-2 rounded-lg max-w-full overflow-hidden">
 				{colors.map((color, index) => (
 					<div
 						key={index}
