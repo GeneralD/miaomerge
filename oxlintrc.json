@@ -1,15 +1,15 @@
 {
-    "rules": {
-        "react": "all",
-        "react-hooks": "all",
-        "typescript": "all",
-        "import": "all"
-    },
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "globals": {
-        "__tauri__": "readonly"
-    }
+	"rules": {
+		"react": "all",
+		"react-hooks": "all",
+		"typescript": "all",
+		"import": "all"
+	},
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"globals": {
+		"__tauri__": "readonly"
+	}
 }
