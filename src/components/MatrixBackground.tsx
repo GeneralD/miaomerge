@@ -3,8 +3,11 @@ import { MatrixRainingLetters } from "react-mdr"
 
 export function MatrixBackground() {
 	return (
-		<div className="fixed inset-0 -z-10 pointer-events-none">
-			<MatrixRainingLetters color="#00FF00" custom_class="m-0 p-0" />
+		<div className="fixed inset-0 z-0 pointer-events-none bg-black">
+			<MatrixRainingLetters
+				color="#00FF00"
+				custom_class="w-full h-full m-0 p-0"
+			/>
 		</div>
 	)
 }

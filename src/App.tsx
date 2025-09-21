@@ -172,14 +172,20 @@ function App() {
 	}
 
 	return (
-		<div className="min-h-screen flex items-center justify-center p-8 relative">
+		<div className="min-h-screen bg-black flex items-center justify-center p-8 relative">
 			<MatrixBackground />
 			<main className="w-full max-w-4xl mx-auto relative z-10">
 				<header className="text-center mb-8 text-white relative">
 					<div className="absolute top-0 right-0 z-50">
 						<LanguageSelector />
 					</div>
-					<h1 className="text-4xl font-bold mb-2 drop-shadow-md">
+					<h1
+						className="text-4xl font-bold mb-2 text-white animate-pulse"
+						style={{
+							textShadow:
+								"0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00, 0 0 20px #00ff00",
+						}}
+					>
 						{t("app.title")}
 					</h1>
 					<p className="text-lg opacity-95">{t("app.subtitle")}</p>
