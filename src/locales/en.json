@@ -15,9 +15,7 @@
 		"selected": "Selected: {{fileName}}"
 	},
 	"ledPreview": {
-		"led1Preview": "LED 1 Preview",
-		"led2Preview": "LED 2 Preview",
-		"led3Preview": "LED 3 Preview",
+		"ledPreview": "LED {{number}} Preview",
 		"preview": "Preview"
 	},
 	"buttons": {

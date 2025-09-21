@@ -1,0 +1,55 @@
+{
+	"app": {
+		"title": "🎮 Cyberboard Config Merger",
+		"subtitle": "合并和自定义您的 CYBERBOARD R4 LED 配置"
+	},
+	"steps": {
+		"selectBase": "1. 选择基础配置",
+		"configureMappings": "2. 配置映射",
+		"review": "3. 审查",
+		"complete": "4. 完成"
+	},
+	"fileSelector": {
+		"selectBaseTitle": "选择基础配置",
+		"selectJsonFile": "选择 JSON 文件",
+		"selected": "已选择: {{fileName}}"
+	},
+	"ledPreview": {
+		"ledPreview": "LED {{number}} 预览",
+		"preview": "预览"
+	},
+	"buttons": {
+		"reselectFile": "重新选择文件",
+		"proceed": "继续",
+		"backToMapping": "返回映射",
+		"saveConfiguration": "保存配置",
+		"createAnother": "创建另一个配置",
+		"addFile": "+ 添加文件",
+		"dismiss": "关闭",
+		"back": "返回",
+		"continueToReview": "继续审查"
+	},
+	"slotMapper": {
+		"addFileFor": "为 LED {{ledNumber}} 添加配置文件",
+		"configurationComplete": "配置完成",
+		"proceedToReview": "继续审查"
+	},
+	"review": {
+		"title": "审查配置"
+	},
+	"complete": {
+		"success": "✅ 配置保存成功！",
+		"message": "您的合并配置已保存。"
+	},
+	"errors": {
+		"noFileContent": "Web 版本未提供文件内容",
+		"failedToLoad": "加载配置失败: {{error}}",
+		"failedToSave": "保存配置失败: {{error}}"
+	},
+	"loading": {
+		"processing": "处理中..."
+	},
+	"warnings": {
+		"frameExceedsLimit": "⚠️ 帧数 ({{count}}) 超过最大限制 300"
+	}
+}

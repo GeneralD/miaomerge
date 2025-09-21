@@ -30,21 +30,21 @@ export function ReviewSummary({
 					selectedPage={
 						concatenatedConfigs?.[5]?.page_data[0]?.page_index || 5
 					}
-					displayName={t("ledPreview.led1Preview")}
+					displayName={t("ledPreview.ledPreview", { number: 1 })}
 				/>
 				<LEDPreview
 					config={concatenatedConfigs?.[6] || baseConfig}
 					selectedPage={
 						concatenatedConfigs?.[6]?.page_data[0]?.page_index || 6
 					}
-					displayName={t("ledPreview.led2Preview")}
+					displayName={t("ledPreview.ledPreview", { number: 2 })}
 				/>
 				<LEDPreview
 					config={concatenatedConfigs?.[7] || baseConfig}
 					selectedPage={
 						concatenatedConfigs?.[7]?.page_data[0]?.page_index || 7
 					}
-					displayName={t("ledPreview.led3Preview")}
+					displayName={t("ledPreview.ledPreview", { number: 3 })}
 				/>
 			</div>
 

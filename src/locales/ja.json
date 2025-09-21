@@ -1,0 +1,55 @@
+{
+	"app": {
+		"title": "🎮 Cyberboard Config Merger",
+		"subtitle": "CYBERBOARD R4 LED設定をマージ・カスタマイズ"
+	},
+	"steps": {
+		"selectBase": "1. ベース選択",
+		"configureMappings": "2. マッピング設定",
+		"review": "3. レビュー",
+		"complete": "4. 完了"
+	},
+	"fileSelector": {
+		"selectBaseTitle": "ベース設定の選択",
+		"selectJsonFile": "JSONファイルを選択",
+		"selected": "選択済み: {{fileName}}"
+	},
+	"ledPreview": {
+		"ledPreview": "LED {{number}} プレビュー",
+		"preview": "プレビュー"
+	},
+	"buttons": {
+		"reselectFile": "ファイルを選び直す",
+		"proceed": "次に進む",
+		"backToMapping": "マッピングに戻る",
+		"saveConfiguration": "設定を保存",
+		"createAnother": "別の設定を作成",
+		"addFile": "+ ファイル追加",
+		"dismiss": "閉じる",
+		"back": "戻る",
+		"continueToReview": "レビューに進む"
+	},
+	"slotMapper": {
+		"addFileFor": "LED {{ledNumber}} の設定ファイルを追加",
+		"configurationComplete": "設定完了",
+		"proceedToReview": "レビューに進む"
+	},
+	"review": {
+		"title": "設定のレビュー"
+	},
+	"complete": {
+		"success": "✅ 設定の保存が完了しました！",
+		"message": "マージされた設定が保存されました。"
+	},
+	"errors": {
+		"noFileContent": "Web版でファイルコンテンツが提供されていません",
+		"failedToLoad": "設定の読み込みに失敗しました: {{error}}",
+		"failedToSave": "設定の保存に失敗しました: {{error}}"
+	},
+	"loading": {
+		"processing": "処理中..."
+	},
+	"warnings": {
+		"frameExceedsLimit": "⚠️ フレーム数 ({{count}}) が最大制限の300を超えています"
+	}
+}

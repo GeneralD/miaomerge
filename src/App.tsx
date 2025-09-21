@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import "./App.scss"
 import "./i18n"
 import { FileSelector } from "./components/FileSelector"
+import { LanguageSelector } from "./components/LanguageSelector"
 import { LEDPreview } from "./components/LEDPreview"
 import { ReviewSummary } from "./components/ReviewSummary"
 import { SlotMapper } from "./components/SlotMapper"
@@ -162,7 +163,10 @@ function App() {
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-8">
 			<main className="w-full max-w-4xl mx-auto">
-				<header className="text-center mb-8 text-white">
+				<header className="text-center mb-8 text-white relative">
+					<div className="absolute top-0 right-0 z-50">
+						<LanguageSelector />
+					</div>
 					<h1 className="text-4xl font-bold mb-2 drop-shadow-md">
 						{t("app.title")}
 					</h1>
@@ -244,21 +248,24 @@ function App() {
 											config={baseConfig}
 											selectedPage={5}
 											displayName={t(
-												"ledPreview.led1Preview"
+												"ledPreview.ledPreview",
+												{ number: 1 }
 											)}
 										/>
 										<LEDPreview
 											config={baseConfig}
 											selectedPage={6}
 											displayName={t(
-												"ledPreview.led2Preview"
+												"ledPreview.ledPreview",
+												{ number: 2 }
 											)}
 										/>
 										<LEDPreview
 											config={baseConfig}
 											selectedPage={7}
 											displayName={t(
-												"ledPreview.led3Preview"
+												"ledPreview.ledPreview",
+												{ number: 3 }
 											)}
 										/>
 									</div>
