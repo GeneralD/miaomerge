@@ -1,6 +1,6 @@
 {
 	"app": {
-		"title": "🎮 Cyberboard Config Merger",
+		"title": "🎮 CYBERBOARD Config Merger",
 		"subtitle": "CYBERBOARD R2以降のLED設定をマージ・カスタマイズ"
 	},
 	"steps": {
@@ -32,10 +32,12 @@
 	"slotMapper": {
 		"addFileFor": "LED {{ledNumber}} の設定ファイルを追加",
 		"configurationComplete": "設定完了",
-		"proceedToReview": "レビューに進む"
+		"proceedToReview": "レビューに進む",
+		"description": "各LEDスロットに設定ファイルを追加してください。",
+		"frameLimit": "各設定で最大300フレームまで追加できます。"
 	},
 	"ledSlot": {
-		"ledTitle": "LED {{number}}"
+		"ledTitle": "LEDスロット {{number}}"
 	},
 	"review": {
 		"title": "設定のレビュー"

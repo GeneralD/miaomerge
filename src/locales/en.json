@@ -1,6 +1,6 @@
 {
 	"app": {
-		"title": "🎮 Cyberboard Config Merger",
+		"title": "🎮 CYBERBOARD Config Merger",
 		"subtitle": "Merge and customize your CYBERBOARD R2+ LED configurations"
 	},
 	"steps": {
@@ -32,10 +32,12 @@
 	"slotMapper": {
 		"addFileFor": "Add configuration file for LED {{ledNumber}}",
 		"configurationComplete": "Configuration Complete",
-		"proceedToReview": "Proceed to Review"
+		"proceedToReview": "Proceed to Review",
+		"description": "Add configuration files for each LED slot.",
+		"frameLimit": "You can add up to 300 frames per configuration."
 	},
 	"ledSlot": {
-		"ledTitle": "LED {{number}}"
+		"ledTitle": "LED Slot {{number}}"
 	},
 	"review": {
 		"title": "Review Configuration"

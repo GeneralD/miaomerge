@@ -139,11 +139,12 @@ export function SlotMapper({
 
 	return (
 		<div>
-			<h2 className="mb-2 text-white text-2xl font-semibold">
+			<h2 className="mb-4 text-white text-2xl font-semibold">
 				Configure Custom LED Pages
 			</h2>
-			<p className="mb-6 text-green-100 italic">
-				Add configuration files for each LED slot.
+			<p className="mb-2 text-green-100">{t("slotMapper.description")}</p>
+			<p className="mb-6 text-green-200 text-sm">
+				{t("slotMapper.frameLimit")}
 			</p>
 
 			{/* LED Slot Selection */}

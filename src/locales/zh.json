@@ -1,6 +1,6 @@
 {
 	"app": {
-		"title": "🎮 Cyberboard Config Merger",
+		"title": "🎮 CYBERBOARD Config Merger",
 		"subtitle": "合并和自定义您的 CYBERBOARD R2+ LED 配置"
 	},
 	"steps": {
@@ -32,10 +32,12 @@
 	"slotMapper": {
 		"addFileFor": "为 LED {{ledNumber}} 添加配置文件",
 		"configurationComplete": "配置完成",
-		"proceedToReview": "继续审查"
+		"proceedToReview": "继续审查",
+		"description": "为每个 LED 插槽添加配置文件。",
+		"frameLimit": "每个配置最多可添加 300 帧。"
 	},
 	"ledSlot": {
-		"ledTitle": "LED {{number}}"
+		"ledTitle": "LED插槽 {{number}}"
 	},
 	"review": {
 		"title": "审查配置"
