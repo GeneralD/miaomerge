@@ -31,11 +31,9 @@ export function FileSelector({
 					{t("fileSelector.selectJsonFile")}
 				</FileSelectButton>
 			) : (
-				<div className="mt-4">
-					<p className="mt-4 p-3 backdrop-blur-sm bg-black/20 border border-green-400/30 rounded-lg text-green-100">
-						{t("fileSelector.selected", { fileName: selectedFile })}
-					</p>
-				</div>
+				<p className="mt-4 p-3 backdrop-blur-sm bg-black/20 border border-green-400/30 rounded-lg text-green-100">
+					{t("fileSelector.selected", { fileName: selectedFile })}
+				</p>
 			)}
 		</div>
 	)

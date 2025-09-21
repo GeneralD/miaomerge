@@ -174,13 +174,13 @@ function App() {
 	return (
 		<div className="min-h-screen bg-black flex items-center justify-center p-8 relative">
 			<MatrixBackground />
+			<div className="fixed top-4 right-4 z-50">
+				<LanguageSelector />
+			</div>
 			<main className="w-full max-w-4xl mx-auto relative z-10">
 				<header className="text-center mb-8 text-white relative">
-					<div className="absolute top-0 right-0 z-50">
-						<LanguageSelector />
-					</div>
 					<h1
-						className="text-4xl font-bold mb-2 text-white animate-pulse"
+						className="text-4xl font-bold mb-2 mt-6 text-white animate-pulse"
 						style={{
 							textShadow:
 								"0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00, 0 0 20px #00ff00",
@@ -251,7 +251,7 @@ function App() {
 					</div>
 				</div>
 
-				<div className="backdrop-blur-md bg-white/20 rounded-2xl p-8 shadow-2xl min-h-96">
+				<div className="backdrop-blur-md bg-white/20 rounded-2xl p-8">
 					{currentStep === "selectBase" && (
 						<>
 							<FileSelector
@@ -261,23 +261,21 @@ function App() {
 							/>
 							{baseConfig && (
 								<>
-									<div className="py-6">
-										<LEDPreview
-											config={baseConfig}
-											selectedPage={5}
-											slot={1}
-										/>
-										<LEDPreview
-											config={baseConfig}
-											selectedPage={6}
-											slot={2}
-										/>
-										<LEDPreview
-											config={baseConfig}
-											selectedPage={7}
-											slot={3}
-										/>
-									</div>
+									<LEDPreview
+										config={baseConfig}
+										selectedPage={5}
+										slot={1}
+									/>
+									<LEDPreview
+										config={baseConfig}
+										selectedPage={6}
+										slot={2}
+									/>
+									<LEDPreview
+										config={baseConfig}
+										selectedPage={7}
+										slot={3}
+									/>
 									<div className="flex justify-between items-center pt-6 border-t border-gray-200 mt-6 gap-4">
 										<input
 											type="button"
