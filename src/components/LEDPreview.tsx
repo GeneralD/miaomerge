@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { LEDConfiguration, PageData } from "../types";
 
 interface LEDPreviewProps {
@@ -17,6 +18,27 @@ export function LEDPreview({
 	className = "",
 	displayName,
 }: LEDPreviewProps) {
+	const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
+	const [isPlaying, setIsPlaying] = useState(true);
+	const [speed, setSpeed] = useState(10); // Hz
+
+	// Animation loop
+	useEffect(() => {
+		if (!isPlaying) return;
+
+		const pageData = getPageData();
+		if (!pageData || !pageData.frames.frame_data || pageData.frames.frame_data.length <= 1) {
+			return;
+		}
+
+		const interval = setInterval(() => {
+			setCurrentFrameIndex(prev => 
+				(prev + 1) % pageData.frames.frame_data.length
+			);
+		}, 1000 / speed);
+
+		return () => clearInterval(interval);
+	}, [isPlaying, speed, config, selectedPage]);
 	const getPageData = (): PageData | null => {
 		if (!config) {
 			return null;
@@ -39,7 +61,7 @@ export function LEDPreview({
 			return Array(TOTAL_LEDS).fill("#000000");
 		}
 
-		const frameData = pageData.frames.frame_data[0];
+		const frameData = pageData.frames.frame_data[currentFrameIndex];
 
 		if (!frameData || !frameData.frame_RGB) {
 			return Array(TOTAL_LEDS).fill("#000000");
@@ -65,10 +87,16 @@ export function LEDPreview({
 		}
 
 		const totalFrames = pageData.frames.frame_data.length;
-		const currentFrame = 1; // Always showing the first frame (index 0 = frame 1)
+		const currentFrame = currentFrameIndex + 1; // Convert to 1-based display
 		
 		return `Frame ${currentFrame}/${totalFrames}`;
 	};
+
+	// Control functions
+	const togglePlayPause = () => setIsPlaying(!isPlaying);
+	const resetToFirst = () => setCurrentFrameIndex(0);
+	const speedUp = () => setSpeed(prev => Math.min(prev + 1, 60)); // Max 60Hz
+	const speedDown = () => setSpeed(prev => Math.max(prev - 1, 1)); // Min 1Hz
 
 	const colors = getCurrentFrame();
 
@@ -87,6 +115,25 @@ export function LEDPreview({
 						title={`LED ${index + 1}: ${color}`}
 					/>
 				))}
+			</div>
+			<div className="led-controls">
+				<div className="control-group">
+					<button onClick={togglePlayPause} className="control-button">
+						{isPlaying ? "⏸️" : "▶️"}
+					</button>
+					<button onClick={resetToFirst} className="control-button">
+						⏮️
+					</button>
+				</div>
+				<div className="speed-controls">
+					<button onClick={speedDown} className="speed-button">
+						➖
+					</button>
+					<span className="speed-display">{speed}Hz</span>
+					<button onClick={speedUp} className="speed-button">
+						➕
+					</button>
+				</div>
 			</div>
 		</div>
 	);

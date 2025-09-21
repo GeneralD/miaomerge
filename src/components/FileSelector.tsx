@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { open } from "@tauri-apps/plugin-dialog";
-import { FileInfo } from "../types";
+import type { FileInfo } from "../types";
 import { isTauri } from "../utils/platform";
 
 interface FileSelectorProps {
@@ -69,7 +69,10 @@ export function FileSelector({
 		if (isTauri()) {
 			handleTauriFileSelect();
 		} else {
-			console.log("Clicking file input, element exists:", !!fileInputRef.current);
+			console.log(
+				"Clicking file input, element exists:",
+				!!fileInputRef.current,
+			);
 			// Reset file input value to allow selecting the same file again
 			if (fileInputRef.current) {
 				fileInputRef.current.value = "";
@@ -87,22 +90,25 @@ export function FileSelector({
 					type="file"
 					accept=".json"
 					onChange={(e) => {
-						console.log("File input onChange fired, files:", e.target.files?.length);
+						console.log(
+							"File input onChange fired, files:",
+							e.target.files?.length,
+						);
 						handleWebFileSelect(e);
 					}}
 					style={{ display: "none" }}
 				/>
 			)}
 			{!selectedFile ? (
-				<button 
+				<input
+					type="button"
 					onClick={() => {
 						console.log("Select JSON File button clicked");
 						handleSelectFile();
-					}} 
+					}}
 					className="select-button"
-				>
-					Select JSON File
-				</button>
+					value="Select JSON File"
+				/>
 			) : (
 				<div className="file-selected">
 					<p className="selected-file">Selected: {selectedFile}</p>

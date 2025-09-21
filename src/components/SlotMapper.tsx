@@ -52,7 +52,7 @@ export function SlotMapper({
 						extensions: ["json"],
 					},
 				],
-				title: `Select source file for Page ${slot}`,
+				title: `Select source file for LED ${slot - 4}`,
 			});
 
 			if (selected && typeof selected === "string") {
@@ -91,10 +91,7 @@ export function SlotMapper({
 				{editablePages.map((page, index) => (
 					<div key={page.page_index} className="mapping-item">
 						<div className="slot-header">
-							<h3>
-								Page {page.page_index} -{" "}
-								{page["//"] || `Custom ${page.page_index - 4}`}
-							</h3>
+							<h3>LED {page.page_index - 4}</h3>
 							<span className="frame-count">
 								{page.frames.frame_data?.length || 0} frames
 							</span>
@@ -158,6 +155,7 @@ export function SlotMapper({
 										<LEDPreview
 											config={sourceConfigs[page.page_index]}
 											selectedPage={page.page_index}
+											displayName="Preview"
 											className="compact"
 										/>
 									</div>
@@ -166,10 +164,10 @@ export function SlotMapper({
 						)}
 
 						<div className="current-preview">
-							<h5>Current Page Preview:</h5>
 							<LEDPreview
 								config={baseConfig}
 								selectedPage={page.page_index}
+								displayName="Preview"
 								className="compact"
 							/>
 						</div>

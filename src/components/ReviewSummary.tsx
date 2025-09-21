@@ -26,11 +26,11 @@ export function ReviewSummary({
 				</div>
 
 				<div className="mappings-summary">
-					<h3>Custom Page Mappings</h3>
+					<h3>Custom LED Mappings</h3>
 					<table>
 						<thead>
 							<tr>
-								<th>Page</th>
+								<th>LED</th>
 								<th>Action</th>
 								<th>Source File</th>
 							</tr>
@@ -38,11 +38,11 @@ export function ReviewSummary({
 						<tbody>
 							{mappings.map((mapping) => (
 								<tr key={mapping.slot}>
-									<td>Page {mapping.slot}</td>
+									<td>LED {mapping.slot - 4}</td>
 									<td className={`action-${mapping.action}`}>
-										{mapping.action === "keep" && "✓ Keep Original"}
-										{mapping.action === "replace" && "↻ Replace"}
-										{mapping.action === "combine" && "⊕ Combine"}
+										{mapping.action === "keep" && "Keep Original"}
+										{mapping.action === "replace" && "Replace"}
+										{mapping.action === "combine" && "Combine"}
 									</td>
 									<td>
 										{mapping.sourceFile
@@ -71,10 +71,11 @@ export function ReviewSummary({
 					<div className="preview-grid">
 						{[5, 6, 7].map((pageIndex) => (
 							<div key={pageIndex} className="page-preview">
-								<h4>Page {pageIndex}</h4>
+								<h4>LED {pageIndex - 4}</h4>
 								<LEDPreview
 									config={baseConfig}
 									selectedPage={pageIndex}
+									displayName={`LED ${pageIndex - 4} Preview`}
 									className="compact"
 								/>
 							</div>

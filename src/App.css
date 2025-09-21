@@ -85,7 +85,6 @@ body {
 .file-selector {
   text-align: center;
   padding: 2rem;
-  border-bottom: 1px solid #e0e0e0;
   margin-bottom: 1.5rem;
 }
 
@@ -508,6 +507,75 @@ table th {
   color: #555;
   margin: 0 0 0.5rem 0;
   font-size: 0.95rem;
+}
+
+.led-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.control-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control-button {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-button:hover {
+  background: #e9ecef;
+  transform: translateY(-1px);
+}
+
+.speed-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.speed-button {
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  min-width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.speed-button:hover {
+  background: #5a6fd8;
+  transform: translateY(-1px);
+}
+
+.speed-display {
+  color: #667eea;
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-width: 3rem;
+  text-align: center;
 }
 
 .preview-section {

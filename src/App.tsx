@@ -183,7 +183,6 @@ function App() {
               return baseConfig && (
                 <>
                   <div className="preview-section">
-                    <h3>LED Preview</h3>
                     <LEDPreview config={baseConfig} selectedPage={5} displayName="LED 1 Preview" />
                     <LEDPreview config={baseConfig} selectedPage={6} displayName="LED 2 Preview" />
                     <LEDPreview config={baseConfig} selectedPage={7} displayName="LED 3 Preview" />
