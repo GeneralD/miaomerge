@@ -5,9 +5,12 @@ export interface ProductInfo {
 }
 
 export interface LEDConfiguration {
+	// Required properties for LED configuration
 	product_info: ProductInfo | null
 	page_num: number
 	page_data: PageData[]
+	// Allow any other properties to be inherited from base config
+	[key: string]: any
 }
 
 export interface PageData {
@@ -32,6 +35,7 @@ export interface FrameData {
 	frame_index: number
 	frame_RGB: string[]
 }
+
 
 export interface FileInfo {
 	name: string

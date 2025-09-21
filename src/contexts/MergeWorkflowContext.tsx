@@ -116,27 +116,38 @@ export function MergeWorkflowProvider({ children }: { children: ReactNode }) {
 				baseFileName?.replace(/\.json$/i, "") || "config"
 			const fileName = `${baseNameWithoutExt}_${timestamp}.json`
 
-			if (baseConfig && concatenatedConfigs) {
-				mergedConfig = { ...baseConfig }
+			if (!baseConfig) {
+				throw new Error("Base configuration is missing")
+			}
 
-				for (const [slotNumber, concatenatedConfig] of Object.entries(
-					concatenatedConfigs
-				)) {
-					const slot = Number(slotNumber)
-					const pageIndex = mergedConfig.page_data.findIndex(
-						(page) => page.page_index === slot
-					)
+			if (!concatenatedConfigs) {
+				throw new Error(
+					"Concatenated configurations are missing - this should not happen"
+				)
+			}
 
-					if (
-						pageIndex !== -1 &&
-						concatenatedConfig.page_data.length > 0
-					) {
-						mergedConfig.page_data[pageIndex] =
-							concatenatedConfig.page_data[0]
-					}
+			// Start with base config to preserve Fn_key and other properties
+			mergedConfig = { ...baseConfig }
+
+			// Only update page_data for LED settings, keep everything else from base
+			for (const [slotNumber, concatenatedConfig] of Object.entries(
+				concatenatedConfigs
+			)) {
+				const slot = Number(slotNumber)
+				const pageIndex = mergedConfig.page_data.findIndex(
+					(page) => page.page_index === slot
+				)
+
+				if (
+					pageIndex !== -1 &&
+					concatenatedConfig.page_data.length > 0
+				) {
+					// Important: Set correct page_index before merging
+					const newPageData = { ...concatenatedConfig.page_data[0] }
+					newPageData.page_index = slot
+
+					mergedConfig.page_data[pageIndex] = newPageData
 				}
-			} else {
-				mergedConfig = baseConfig as LEDConfiguration
 			}
 
 			if (isTauri()) {

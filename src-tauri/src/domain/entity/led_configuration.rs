@@ -6,6 +6,9 @@ pub struct LEDConfiguration {
     pub product_info: Value,
     pub page_num: u32,
     pub page_data: Vec<PageData>,
+    // Allow any other properties to be preserved from the original JSON
+    #[serde(flatten)]
+    pub other: std::collections::HashMap<String, Value>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
