@@ -8,6 +8,7 @@ import "./i18n"
 import { FileSelector } from "./components/FileSelector"
 import { LanguageSelector } from "./components/LanguageSelector"
 import { LEDPreview } from "./components/LEDPreview"
+import { MatrixBackground } from "./components/MatrixBackground"
 import { ReviewSummary } from "./components/ReviewSummary"
 import { SlotMapper } from "./components/SlotMapper"
 import type {
@@ -100,6 +101,14 @@ function App() {
 
 			let mergedConfig: LEDConfiguration
 
+			// Create filename with base name and timestamp
+			const timestamp = new Date().toISOString()
+				.replace(/:/g, '-')
+				.replace(/\..+/, '')
+				.replace('T', '_')
+			const baseNameWithoutExt = baseFileName?.replace(/\.json$/i, '') || "config"
+			const fileName = `${baseNameWithoutExt}_${timestamp}.json`
+
 			if (isTauri()) {
 				// Merge configurations on the backend (Tauri)
 				mergedConfig = await invoke<LEDConfiguration>("merge_configs", {
@@ -115,7 +124,7 @@ function App() {
 							extensions: ["json"],
 						},
 					],
-					defaultPath: `merged_${new Date().toISOString().slice(0, 10)}.json`,
+					defaultPath: fileName,
 				})
 
 				if (savePath) {
@@ -136,7 +145,7 @@ function App() {
 				const url = URL.createObjectURL(blob)
 				const a = document.createElement("a")
 				a.href = url
-				a.download = `merged_${new Date().toISOString().slice(0, 10)}.json`
+				a.download = fileName
 				document.body.appendChild(a)
 				a.click()
 				document.body.removeChild(a)
@@ -161,8 +170,9 @@ function App() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-8">
-			<main className="w-full max-w-4xl mx-auto">
+		<div className="min-h-screen flex items-center justify-center p-8 relative">
+			<MatrixBackground />
+			<main className="w-full max-w-4xl mx-auto relative z-10">
 				<header className="text-center mb-8 text-white relative">
 					<div className="absolute top-0 right-0 z-50">
 						<LanguageSelector />

@@ -35,6 +35,9 @@ importers:
       react-i18next:
         specifier: 15.7.3
         version: 15.7.3(i18next@25.5.2(typescript@5.8.3))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.8.3)
+      react-mdr:
+        specifier: 0.1.5
+        version: 0.1.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
     devDependencies:
       '@biomejs/biome':
         specifier: 2.2.4
@@ -1197,6 +1200,12 @@ packages:
         optional: true
       typescript:
         optional: true
+
+  react-mdr@0.1.5:
+    resolution: {integrity: sha512-KOIxi/ThzUhvniWOvpV9dkore5CL05tbFQPK7U4GKZu2WlzRp+FAdgXgr+NF7hZVmkb35Yf3NMUObbtMoB9ZRQ==}
+    peerDependencies:
+      react: '>=17.0.1'
+      react-dom: '>=17.0.1'
 
   react-refresh@0.17.0:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
@@ -2436,6 +2445,12 @@ snapshots:
     optionalDependencies:
       react-dom: 19.1.1(react@19.1.1)
       typescript: 5.8.3
+
+  react-mdr@0.1.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+    dependencies:
+      '@babel/runtime': 7.28.4
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
 
   react-refresh@0.17.0: {}
 
