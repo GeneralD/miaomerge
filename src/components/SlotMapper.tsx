@@ -2,12 +2,19 @@ import { useState, useMemo } from "react"
 import type { LEDConfiguration, MergeMapping, SlotFile } from "../types"
 import { LEDPreview } from "./LEDPreview"
 import { FileSelectButton } from "./FileSelectButton"
-import { concatenateSlotFrames, validateAllSlots, type ConcatenatedLEDConfig } from "../utils/frameUtils"
+import {
+	concatenateSlotFrames,
+	validateAllSlots,
+	type ConcatenatedLEDConfig,
+} from "../utils/frameUtils"
 
 interface SlotMapperProps {
 	baseConfig: LEDConfiguration
 	baseFileName: string
-	onMappingComplete: (mappings: MergeMapping[], concatenatedConfigs: { [key: number]: ConcatenatedLEDConfig }) => void
+	onMappingComplete: (
+		mappings: MergeMapping[],
+		concatenatedConfigs: { [key: number]: ConcatenatedLEDConfig }
+	) => void
 	onBack: () => void
 }
 
@@ -124,25 +131,37 @@ export function SlotMapper({
 	}
 
 	return (
-		<div className="slot-mapper">
-			<h2>Configure Custom LED Pages</h2>
-			<p>Add configuration files for each LED slot.</p>
+		<div>
+			<h2 className="mb-2 text-gray-800 text-2xl font-semibold">
+				Configure Custom LED Pages
+			</h2>
+			<p className="mb-6 text-gray-600 italic">
+				Add configuration files for each LED slot.
+			</p>
 
 			{/* LED Slot Selection */}
-			<div className="led-slots-container">
+			<div className="mb-8">
 				{[5, 6, 7].map((slotNumber) => {
 					const files = slotFiles[slotNumber]
 
 					return (
-						<div key={slotNumber} className="led-slot-item">
-							<div className="slot-header">
-								<h3>LED {slotNumber - 4}</h3>
+						<div
+							key={slotNumber}
+							className="border border-gray-200 rounded-lg p-4 mb-4 transition-shadow duration-200 hover:shadow-md"
+						>
+							<div className="flex justify-between items-center mb-4">
+								<h3 className="text-primary-500 m-0 text-lg font-semibold">
+									LED {slotNumber - 4}
+								</h3>
 							</div>
 
-							<div className="slot-files-list">
+							<div className="mb-4">
 								{files.map((file, index) => (
-									<div key={index} className="slot-file-item">
-										<span className="file-name">
+									<div
+										key={index}
+										className="flex items-center gap-2 p-2 border border-gray-200 rounded mb-2 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+									>
+										<span className="flex-1 text-sm text-gray-800">
 											{file.fileInfo.name}
 										</span>
 										<select
@@ -154,7 +173,7 @@ export function SlotMapper({
 													Number(e.target.value)
 												)
 											}
-											className="source-led-select"
+											className="px-2 py-1 border border-gray-300 rounded text-xs bg-white"
 										>
 											<option value={5}>LED 1</option>
 											<option value={6}>LED 2</option>
@@ -168,7 +187,7 @@ export function SlotMapper({
 													index
 												)
 											}
-											className="remove-file-btn"
+											className="bg-red-500 text-white border-none rounded w-6 h-6 cursor-pointer text-lg leading-none p-0 transition-colors duration-200 hover:bg-red-600"
 											value="×"
 										/>
 									</div>
@@ -183,13 +202,14 @@ export function SlotMapper({
 										)
 									}
 									title={`Add configuration file for LED ${slotNumber - 4}`}
+									className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none rounded px-4 py-2 text-sm cursor-pointer transition-transform duration-200 w-full mt-2 hover:-translate-y-0.5 hover:shadow-md"
 								>
 									+ Add File
 								</FileSelectButton>
 							</div>
 
-							<div className="current-preview">
-								<div className="preview-item">
+							<div className="mt-4 pt-4 border-t border-gray-200">
+								<div className="mb-4">
 									<LEDPreview
 										config={concatenatedConfigs[slotNumber]}
 										selectedPage={
@@ -201,7 +221,7 @@ export function SlotMapper({
 									/>
 									{concatenatedConfigs[slotNumber]
 										.warning && (
-										<div className="frame-warning">
+										<div className="text-orange-600 text-sm mt-2 p-2 bg-orange-50 rounded border-l-3 border-orange-600">
 											⚠️{" "}
 											{
 												concatenatedConfigs[slotNumber]
@@ -216,17 +236,21 @@ export function SlotMapper({
 				})}
 			</div>
 
-			<div className="actions">
+			<div className="flex justify-between gap-4 mt-8">
 				<input
 					type="button"
 					onClick={onBack}
-					className="back-button"
+					className="bg-gray-100 text-gray-600 border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-200"
 					value="Back"
 				/>
 				<input
 					type="button"
 					onClick={handleComplete}
-					className={`continue-button ${!isAllValid ? "disabled" : ""}`}
+					className={`px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 border-none ${
+						!isAllValid
+							? "bg-gray-300 text-gray-500 cursor-not-allowed"
+							: "bg-gradient-to-br from-blue-500 to-purple-600 text-white hover:-translate-y-1 hover:shadow-lg"
+					}`}
 					value="Continue to Review"
 					disabled={!isAllValid}
 				/>

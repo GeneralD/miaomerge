@@ -106,48 +106,54 @@ export function LEDPreview({
 	const colors = getCurrentFrame()
 
 	return (
-		<div className={`led-preview ${className}`}>
-			<div className="led-preview-header">
-				<h4>{displayName || `LED Preview - Page ${selectedPage}`}</h4>
-				<span className="frame-info">{getFrameInfo()}</span>
+		<div
+			className={`bg-gray-50 border border-gray-200 rounded-lg p-4 my-4 ${className}`}
+		>
+			<div className="flex justify-between items-center mb-4">
+				<h4 className="text-primary-500 m-0 text-base font-medium">
+					{displayName || `LED Preview - Page ${selectedPage}`}
+				</h4>
+				<span className="text-gray-500 text-sm">{getFrameInfo()}</span>
 			</div>
-			<div className="led-grid">
+			<div className="grid grid-cols-led grid-rows-led gap-px bg-gray-300 p-0.5 rounded aspect-led max-w-full overflow-hidden">
 				{colors.map((color, index) => (
 					<div
 						key={index}
-						className="led-dot"
+						className="rounded-sm transition-colors duration-200 min-h-2 hover:scale-110 hover:z-10 hover:relative hover:shadow-md"
 						style={{ backgroundColor: color }}
 						title={`LED ${index + 1}: ${color}`}
 					/>
 				))}
 			</div>
-			<div className="led-controls">
-				<div className="control-group">
+			<div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-200">
+				<div className="flex gap-2">
 					<input
 						type="button"
 						onClick={togglePlayPause}
-						className="control-button"
+						className="bg-gray-100 border border-gray-200 rounded px-2 cursor-pointer text-base transition-all duration-200 min-w-10 h-10 flex items-center justify-center hover:bg-gray-200 hover:-translate-y-0.5"
 						value={isPlaying ? "⏸" : "▶"}
 					/>
 					<input
 						type="button"
 						onClick={resetToFirst}
-						className="control-button"
+						className="bg-gray-100 border border-gray-200 rounded px-2 cursor-pointer text-base transition-all duration-200 min-w-10 h-10 flex items-center justify-center hover:bg-gray-200 hover:-translate-y-0.5"
 						value="⏮"
 					/>
 				</div>
-				<div className="speed-controls">
+				<div className="flex items-center gap-2">
 					<input
 						type="button"
 						onClick={speedDown}
-						className="speed-button"
+						className="bg-primary-500 text-white border-none rounded px-2 cursor-pointer text-sm transition-all duration-200 min-w-8 h-8 flex items-center justify-center hover:bg-primary-600 hover:-translate-y-0.5"
 						value="-"
 					/>
-					<span className="speed-display">{speed}Hz</span>
+					<span className="text-primary-500 font-semibold text-sm min-w-12 text-center">
+						{speed}Hz
+					</span>
 					<input
 						type="button"
 						onClick={speedUp}
-						className="speed-button"
+						className="bg-primary-500 text-white border-none rounded px-2 cursor-pointer text-sm transition-all duration-200 min-w-8 h-8 flex items-center justify-center hover:bg-primary-600 hover:-translate-y-0.5"
 						value="+"
 					/>
 				</div>
