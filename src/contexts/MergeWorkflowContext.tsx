@@ -68,7 +68,8 @@ export function MergeWorkflowProvider({ children }: { children: ReactNode }) {
 				if (!content) {
 					throw new Error("No file content provided for web version")
 				}
-				config = JSON.parse(content)
+				// Parse as any to preserve all properties, then cast to LEDConfiguration
+				config = JSON.parse(content) as LEDConfiguration
 			}
 
 			setBaseConfig(config)
@@ -101,6 +102,8 @@ export function MergeWorkflowProvider({ children }: { children: ReactNode }) {
 	}
 
 	const handleSaveConfiguration = async () => {
+		console.log("DEBUG: handleSaveConfiguration called")
+		console.log("DEBUG: Platform is Tauri?", isTauri())
 		try {
 			setIsLoading(true)
 			setError(null)
@@ -121,10 +124,16 @@ export function MergeWorkflowProvider({ children }: { children: ReactNode }) {
 			}
 
 			if (!concatenatedConfigs) {
+				console.log("DEBUG: concatenatedConfigs is null/undefined")
+				console.log("DEBUG: Current step:", currentStep)
+				console.log("DEBUG: Base config exists:", !!baseConfig)
 				throw new Error(
 					"Concatenated configurations are missing - this should not happen"
 				)
 			}
+
+			console.log("DEBUG: concatenatedConfigs:", concatenatedConfigs)
+			console.log("DEBUG: Object.keys(concatenatedConfigs):", Object.keys(concatenatedConfigs))
 
 			// Start with base config to preserve Fn_key and other properties
 			mergedConfig = { ...baseConfig }
@@ -142,8 +151,12 @@ export function MergeWorkflowProvider({ children }: { children: ReactNode }) {
 					pageIndex !== -1 &&
 					concatenatedConfig.page_data.length > 0
 				) {
-					// Important: Set correct page_index before merging
-					const newPageData = { ...concatenatedConfig.page_data[0] }
+					// Important: Set correct page_index before merging and only use frames data
+					const sourcePageData = concatenatedConfig.page_data[0]
+					const newPageData = { ...mergedConfig.page_data[pageIndex] }
+					
+					// Only replace frames data, keep other page properties from base
+					newPageData.frames = sourcePageData.frames
 					newPageData.page_index = slot
 
 					mergedConfig.page_data[pageIndex] = newPageData
