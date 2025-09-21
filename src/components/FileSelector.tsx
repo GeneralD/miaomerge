@@ -1,4 +1,4 @@
-import type { FileInfo, LEDConfiguration } from "../types"
+import type { FileInfo } from "../types"
 import { FileSelectButton } from "./FileSelectButton"
 
 interface FileSelectorProps {
@@ -11,17 +11,8 @@ interface FileSelectorProps {
 export function FileSelector({
 	onFileSelect,
 	title,
-	multiple = false,
 	selectedFile,
 }: FileSelectorProps) {
-	const handleFileSelect = (
-		fileInfo: FileInfo,
-		config?: LEDConfiguration,
-		content?: string
-	) => {
-		onFileSelect(fileInfo, content)
-	}
-
 	return (
 		<div className="text-center p-8 mb-6">
 			<h3 className="mb-6 text-gray-800 text-xl font-semibold">
@@ -29,7 +20,9 @@ export function FileSelector({
 			</h3>
 			{!selectedFile ? (
 				<FileSelectButton
-					onFileSelect={handleFileSelect}
+					onFileSelect={(fileInfo, _config, content) =>
+						onFileSelect(fileInfo, content)
+					}
 					title={title}
 					className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none px-8 py-4 text-lg rounded-lg cursor-pointer transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg"
 					loadConfig={false}

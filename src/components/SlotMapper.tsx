@@ -1,12 +1,17 @@
-import { useState, useMemo } from "react"
-import type { LEDConfiguration, MergeMapping, SlotFile } from "../types"
-import { LEDPreview } from "./LEDPreview"
-import { FileSelectButton } from "./FileSelectButton"
+import { useMemo, useState } from "react"
+import type {
+	FileInfo,
+	LEDConfiguration,
+	MergeMapping,
+	SlotFile,
+} from "../types"
 import {
+	type ConcatenatedLEDConfig,
 	concatenateSlotFrames,
 	validateAllSlots,
-	type ConcatenatedLEDConfig,
 } from "../utils/frameUtils"
+import { FileSelectButton } from "./FileSelectButton"
+import { LEDPreview } from "./LEDPreview"
 
 interface SlotMapperProps {
 	baseConfig: LEDConfiguration
@@ -55,7 +60,7 @@ export function SlotMapper({
 
 	const handleAddFileToSlot = (
 		slotNumber: number,
-		fileInfo: any,
+		fileInfo: FileInfo,
 		config: LEDConfiguration
 	) => {
 		// Add file to the specific slot with LED 1 as default
@@ -156,9 +161,9 @@ export function SlotMapper({
 							</div>
 
 							<div className="mb-4">
-								{files.map((file, index) => (
+								{files.map((file, fileIndex) => (
 									<div
-										key={index}
+										key={`${file.fileInfo.path}-${file.sourceLED}`}
 										className="flex items-center gap-2 p-2 border border-gray-200 rounded mb-2 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
 									>
 										<span className="flex-1 text-sm text-gray-800">
@@ -169,7 +174,7 @@ export function SlotMapper({
 											onChange={(e) =>
 												handleSourceLEDChange(
 													slotNumber,
-													index,
+													fileIndex,
 													Number(e.target.value)
 												)
 											}
@@ -184,7 +189,7 @@ export function SlotMapper({
 											onClick={() =>
 												handleRemoveFileFromSlot(
 													slotNumber,
-													index
+													fileIndex
 												)
 											}
 											className="bg-red-500 text-white border-none rounded w-6 h-6 cursor-pointer text-lg leading-none p-0 transition-colors duration-200 hover:bg-red-600"
@@ -194,13 +199,15 @@ export function SlotMapper({
 								))}
 
 								<FileSelectButton
-									onFileSelect={(fileInfo, config) =>
-										handleAddFileToSlot(
-											slotNumber,
-											fileInfo,
-											config
-										)
-									}
+									onFileSelect={(fileInfo, config) => {
+										if (config) {
+											handleAddFileToSlot(
+												slotNumber,
+												fileInfo,
+												config
+											)
+										}
+									}}
 									title={`Add configuration file for LED ${slotNumber - 4}`}
 									className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none rounded px-4 py-2 text-sm cursor-pointer transition-transform duration-200 w-full mt-2 hover:-translate-y-0.5 hover:shadow-md"
 								>
@@ -211,21 +218,28 @@ export function SlotMapper({
 							<div className="mt-4 pt-4 border-t border-gray-200">
 								<div className="mb-4">
 									<LEDPreview
-										config={concatenatedConfigs[slotNumber]}
+										config={
+											concatenatedConfigs[
+												slotNumber as keyof typeof concatenatedConfigs
+											]
+										}
 										selectedPage={
-											concatenatedConfigs[slotNumber]
-												.page_data[0]?.page_index ||
+											concatenatedConfigs[
+												slotNumber as keyof typeof concatenatedConfigs
+											].page_data[0]?.page_index ||
 											slotNumber
 										}
 										displayName="Preview"
 									/>
-									{concatenatedConfigs[slotNumber]
-										.warning && (
+									{concatenatedConfigs[
+										slotNumber as keyof typeof concatenatedConfigs
+									].warning && (
 										<div className="text-orange-600 text-sm mt-2 p-2 bg-orange-50 rounded border-l-3 border-orange-600">
 											⚠️{" "}
 											{
-												concatenatedConfigs[slotNumber]
-													.warning
+												concatenatedConfigs[
+													slotNumber as keyof typeof concatenatedConfigs
+												].warning
 											}
 										</div>
 									)}

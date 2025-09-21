@@ -1,4 +1,4 @@
-import type { LEDConfiguration, SlotFile, FrameData } from "../types"
+import type { FrameData, LEDConfiguration, SlotFile } from "../types"
 
 export interface ConcatenatedLEDConfig extends LEDConfiguration {
 	totalFrames: number
@@ -39,7 +39,7 @@ export function concatenateSlotFrames(
 	}
 
 	// Start with base page frames
-	let concatenatedFrames: FrameData[] = [
+	const concatenatedFrames: FrameData[] = [
 		...(basePageData.frames.frame_data || []),
 	]
 
@@ -50,7 +50,7 @@ export function concatenateSlotFrames(
 			(page) => page.page_index === file.sourceLED
 		)
 
-		if (pageData && pageData.frames.frame_data) {
+		if (pageData?.frames.frame_data) {
 			// Reindex frames to continue from the last frame index
 			const reindexedFrames = pageData.frames.frame_data.map(
 				(frame, index) => ({

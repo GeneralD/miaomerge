@@ -2,7 +2,7 @@ import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
 import { writeTextFile } from "@tauri-apps/plugin-fs"
 import { useState } from "react"
-import "./App.css"
+import "./App.scss"
 import { FileSelector } from "./components/FileSelector"
 import { LEDPreview } from "./components/LEDPreview"
 import { ReviewSummary } from "./components/ReviewSummary"
@@ -13,14 +13,13 @@ import type {
 	MergeMapping,
 	MergeStep,
 } from "./types"
-import { isTauri } from "./utils/platform"
 import type { ConcatenatedLEDConfig } from "./utils/frameUtils"
+import { isTauri } from "./utils/platform"
 
 function App() {
 	const [currentStep, setCurrentStep] = useState<MergeStep>("selectBase")
 	const [baseConfig, setBaseConfig] = useState<LEDConfiguration | null>(null)
 	const [baseFileName, setBaseFileName] = useState<string | null>(null)
-	const [additionalFiles, setAdditionalFiles] = useState<FileInfo[]>([])
 	const [mappings, setMappings] = useState<MergeMapping[]>([])
 	const [concatenatedConfigs, setConcatenatedConfigs] = useState<{
 		[key: number]: ConcatenatedLEDConfig
@@ -124,7 +123,7 @@ function App() {
 				}
 			} else {
 				// Simple merge for web version (keep original for now)
-				mergedConfig = baseConfig!
+				mergedConfig = baseConfig as LEDConfiguration
 
 				// Download the file using web APIs
 				const blob = new Blob([JSON.stringify(mergedConfig, null, 2)], {
@@ -152,7 +151,6 @@ function App() {
 		setCurrentStep("selectBase")
 		setBaseConfig(null)
 		setBaseFileName(null)
-		setAdditionalFiles([])
 		setMappings([])
 		setConcatenatedConfigs(null)
 		setError(null)
@@ -289,7 +287,6 @@ function App() {
 					{currentStep === "review" && baseConfig && (
 						<ReviewSummary
 							baseConfig={baseConfig}
-							mappings={mappings}
 							concatenatedConfigs={concatenatedConfigs}
 							onConfirm={handleSaveConfiguration}
 							onBack={() => setCurrentStep("configureMappings")}

@@ -1,7 +1,12 @@
 // Platform detection utility
 declare global {
 	interface Window {
-		__TAURI__?: any
+		__TAURI__?: {
+			invoke: (
+				cmd: string,
+				args?: Record<string, unknown>
+			) => Promise<unknown>
+		}
 		isTauri?: boolean
 	}
 }

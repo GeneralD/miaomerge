@@ -1,10 +1,9 @@
-import type { LEDConfiguration, MergeMapping } from "../types"
-import { LEDPreview } from "./LEDPreview"
+import type { LEDConfiguration } from "../types"
 import type { ConcatenatedLEDConfig } from "../utils/frameUtils"
+import { LEDPreview } from "./LEDPreview"
 
 interface ReviewSummaryProps {
 	baseConfig: LEDConfiguration
-	mappings: MergeMapping[]
 	concatenatedConfigs: { [key: number]: ConcatenatedLEDConfig } | null
 	onConfirm: () => void
 	onBack: () => void
@@ -12,7 +11,6 @@ interface ReviewSummaryProps {
 
 export function ReviewSummary({
 	baseConfig,
-	mappings,
 	concatenatedConfigs,
 	onConfirm,
 	onBack,

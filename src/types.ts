@@ -1,5 +1,11 @@
+export interface ProductInfo {
+	name?: string
+	version?: string
+	manufacturer?: string
+}
+
 export interface LEDConfiguration {
-	product_info: any
+	product_info: ProductInfo | null
 	page_num: number
 	page_data: PageData[]
 }
@@ -9,10 +15,10 @@ export interface PageData {
 	page_index: number
 	lightness: number
 	speed_ms: number
-	color: any
-	word_page: any
+	color: string | null
+	word_page: string | null
 	frames: FramesData
-	keyframes: any
+	keyframes: unknown[]
 	"//": string
 }
 
