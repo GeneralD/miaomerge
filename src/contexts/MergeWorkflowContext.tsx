@@ -92,7 +92,7 @@ export function MergeWorkflowProvider({ children }: { children: ReactNode }) {
 	}
 
 	const handleMappingComplete = (
-		newMappings: MergeMapping[],
+		_newMappings: MergeMapping[],
 		newConcatenatedConfigs: { [key: number]: ConcatenatedLEDConfig },
 		slotFiles: { [key: number]: SlotFile[] }
 	) => {

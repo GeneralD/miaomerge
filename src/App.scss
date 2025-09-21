@@ -12,4 +12,19 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 	}
+	
+	/* Respect system theme preferences */
+	@media (prefers-color-scheme: dark) {
+		body {
+			background-color: #000000;
+			color: #ffffff;
+		}
+	}
+	
+	@media (prefers-color-scheme: light) {
+		body {
+			background-color: #ffffff;
+			color: #000000;
+		}
+	}
 }
