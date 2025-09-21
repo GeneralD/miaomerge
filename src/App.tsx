@@ -2,7 +2,9 @@ import { invoke } from "@tauri-apps/api/core"
 import { save } from "@tauri-apps/plugin-dialog"
 import { writeTextFile } from "@tauri-apps/plugin-fs"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import "./App.scss"
+import "./i18n"
 import { FileSelector } from "./components/FileSelector"
 import { LEDPreview } from "./components/LEDPreview"
 import { ReviewSummary } from "./components/ReviewSummary"
@@ -17,6 +19,7 @@ import type { ConcatenatedLEDConfig } from "./utils/frameUtils"
 import { isTauri } from "./utils/platform"
 
 function App() {
+	const { t } = useTranslation()
 	const [currentStep, setCurrentStep] = useState<MergeStep>("selectBase")
 	const [baseConfig, setBaseConfig] = useState<LEDConfiguration | null>(null)
 	const [baseFileName, setBaseFileName] = useState<string | null>(null)
@@ -51,7 +54,7 @@ function App() {
 			setBaseFileName(file.name)
 		} catch (err) {
 			console.error("App - Error loading config:", err)
-			setError(`Failed to load configuration: ${err}`)
+			setError(t("errors.failedToLoad", { error: err }))
 		} finally {
 			setIsLoading(false)
 		}
@@ -141,7 +144,7 @@ function App() {
 				setCurrentStep("complete")
 			}
 		} catch (err) {
-			setError(`Failed to save configuration: ${err}`)
+			setError(t("errors.failedToSave", { error: err }))
 		} finally {
 			setIsLoading(false)
 		}
@@ -161,12 +164,9 @@ function App() {
 			<main className="w-full max-w-4xl mx-auto">
 				<header className="text-center mb-8 text-white">
 					<h1 className="text-4xl font-bold mb-2 drop-shadow-md">
-						🎮 Cyberboard Config Merger
+						{t("app.title")}
 					</h1>
-					<p className="text-lg opacity-95">
-						Merge and customize your CYBERBOARD R4 LED
-						configurations
-					</p>
+					<p className="text-lg opacity-95">{t("app.subtitle")}</p>
 				</header>
 
 				{error && (
@@ -175,7 +175,7 @@ function App() {
 						<input
 							type="button"
 							onClick={() => setError(null)}
-							value="Dismiss"
+							value={t("buttons.dismiss")}
 							className="bg-red-700 text-white border-none px-3 py-1 rounded cursor-pointer"
 						/>
 					</div>
@@ -184,7 +184,9 @@ function App() {
 				{isLoading && (
 					<div className="fixed inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center z-50">
 						<div className="w-12 h-12 border-4 border-white border-opacity-30 border-t-white rounded-full animate-spin"></div>
-						<p className="text-white mt-4 text-lg">Processing...</p>
+						<p className="text-white mt-4 text-lg">
+							{t("loading.processing")}
+						</p>
 					</div>
 				)}
 
@@ -196,7 +198,7 @@ function App() {
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
-						1. Select Base
+						{t("steps.selectBase")}
 					</div>
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
@@ -205,7 +207,7 @@ function App() {
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
-						2. Configure Mappings
+						{t("steps.configureMappings")}
 					</div>
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
@@ -214,7 +216,7 @@ function App() {
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
-						3. Review
+						{t("steps.review")}
 					</div>
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
@@ -223,7 +225,7 @@ function App() {
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
-						4. Complete
+						{t("steps.complete")}
 					</div>
 				</div>
 
@@ -231,7 +233,7 @@ function App() {
 					{currentStep === "selectBase" && (
 						<>
 							<FileSelector
-								title="Select Base Configuration"
+								title={t("fileSelector.selectBaseTitle")}
 								onFileSelect={handleBaseFileSelect}
 								selectedFile={baseFileName}
 							/>
@@ -241,17 +243,23 @@ function App() {
 										<LEDPreview
 											config={baseConfig}
 											selectedPage={5}
-											displayName="LED 1 Preview"
+											displayName={t(
+												"ledPreview.led1Preview"
+											)}
 										/>
 										<LEDPreview
 											config={baseConfig}
 											selectedPage={6}
-											displayName="LED 2 Preview"
+											displayName={t(
+												"ledPreview.led2Preview"
+											)}
 										/>
 										<LEDPreview
 											config={baseConfig}
 											selectedPage={7}
-											displayName="LED 3 Preview"
+											displayName={t(
+												"ledPreview.led3Preview"
+											)}
 										/>
 									</div>
 									<div className="flex justify-between items-center pt-6 border-t border-gray-200 mt-6 gap-4">
@@ -259,13 +267,13 @@ function App() {
 											type="button"
 											onClick={handleReselectBase}
 											className="bg-gray-100 text-gray-600 border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-200 hover:-translate-y-0.5"
-											value="ファイルを選び直す"
+											value={t("buttons.reselectFile")}
 										/>
 										<input
 											type="button"
 											onClick={handleProceedToMapping}
 											className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
-											value="次に進む"
+											value={t("buttons.proceed")}
 										/>
 									</div>
 								</>
@@ -296,16 +304,16 @@ function App() {
 					{currentStep === "complete" && (
 						<div className="text-center py-12">
 							<h2 className="text-green-500 mb-4 text-3xl font-bold">
-								✅ Configuration Saved Successfully!
+								{t("complete.success")}
 							</h2>
 							<p className="text-gray-600 mb-8 text-lg">
-								Your merged configuration has been saved.
+								{t("complete.message")}
 							</p>
 							<input
 								type="button"
 								onClick={resetApp}
 								className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
-								value="Create Another Configuration"
+								value={t("buttons.createAnother")}
 							/>
 						</div>
 					)}

@@ -1,0 +1,57 @@
+{
+	"app": {
+		"title": "🎮 Cyberboard Config Merger",
+		"subtitle": "Merge and customize your CYBERBOARD R4 LED configurations"
+	},
+	"steps": {
+		"selectBase": "1. Select Base",
+		"configureMappings": "2. Configure",
+		"review": "3. Review",
+		"complete": "4. Complete"
+	},
+	"fileSelector": {
+		"selectBaseTitle": "Select Base Configuration",
+		"selectJsonFile": "Select JSON File",
+		"selected": "Selected: {{fileName}}"
+	},
+	"ledPreview": {
+		"led1Preview": "LED 1 Preview",
+		"led2Preview": "LED 2 Preview",
+		"led3Preview": "LED 3 Preview",
+		"preview": "Preview"
+	},
+	"buttons": {
+		"reselectFile": "Reselect File",
+		"proceed": "Proceed",
+		"backToMapping": "Back to Mapping",
+		"saveConfiguration": "Save Configuration",
+		"createAnother": "Create Another Configuration",
+		"addFile": "+ Add File",
+		"dismiss": "Dismiss",
+		"back": "Back",
+		"continueToReview": "Continue to Review"
+	},
+	"slotMapper": {
+		"addFileFor": "Add configuration file for LED {{ledNumber}}",
+		"configurationComplete": "Configuration Complete",
+		"proceedToReview": "Proceed to Review"
+	},
+	"review": {
+		"title": "Review Configuration"
+	},
+	"complete": {
+		"success": "✅ Configuration Saved Successfully!",
+		"message": "Your merged configuration has been saved."
+	},
+	"errors": {
+		"noFileContent": "No file content provided for web version",
+		"failedToLoad": "Failed to load configuration: {{error}}",
+		"failedToSave": "Failed to save configuration: {{error}}"
+	},
+	"loading": {
+		"processing": "Processing..."
+	},
+	"warnings": {
+		"frameExceedsLimit": "⚠️ Frame count ({{count}}) exceeds maximum limit of 300"
+	}
+}

@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react"
+import { useTranslation } from "react-i18next"
 import type {
 	FileInfo,
 	LEDConfiguration,
@@ -33,6 +34,7 @@ export function SlotMapper({
 	onMappingComplete,
 	onBack,
 }: SlotMapperProps) {
+	const { t } = useTranslation()
 	// Initialize with base file - each LED slot gets its corresponding LED
 	const [slotFiles, setSlotFiles] = useState<SlotFiles>({
 		5: [
@@ -208,10 +210,12 @@ export function SlotMapper({
 											)
 										}
 									}}
-									title={`Add configuration file for LED ${slotNumber - 4}`}
+									title={t("slotMapper.addFileFor", {
+										ledNumber: slotNumber - 4,
+									})}
 									className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none rounded px-4 py-2 text-sm cursor-pointer transition-transform duration-200 w-full mt-2 hover:-translate-y-0.5 hover:shadow-md"
 								>
-									+ Add File
+									{t("buttons.addFile")}
 								</FileSelectButton>
 							</div>
 
@@ -229,7 +233,7 @@ export function SlotMapper({
 											].page_data[0]?.page_index ||
 											slotNumber
 										}
-										displayName="Preview"
+										displayName={t("ledPreview.preview")}
 									/>
 									{concatenatedConfigs[
 										slotNumber as keyof typeof concatenatedConfigs
@@ -255,7 +259,7 @@ export function SlotMapper({
 					type="button"
 					onClick={onBack}
 					className="bg-gray-100 text-gray-600 border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-200"
-					value="Back"
+					value={t("buttons.back")}
 				/>
 				<input
 					type="button"
@@ -265,7 +269,7 @@ export function SlotMapper({
 							? "bg-gray-300 text-gray-500 cursor-not-allowed"
 							: "bg-gradient-to-br from-blue-500 to-purple-600 text-white hover:-translate-y-1 hover:shadow-lg"
 					}`}
-					value="Continue to Review"
+					value={t("buttons.continueToReview")}
 					disabled={!isAllValid}
 				/>
 			</div>

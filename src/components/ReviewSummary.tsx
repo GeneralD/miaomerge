@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import type { LEDConfiguration } from "../types"
 import type { ConcatenatedLEDConfig } from "../utils/frameUtils"
 import { LEDPreview } from "./LEDPreview"
@@ -15,10 +16,12 @@ export function ReviewSummary({
 	onConfirm,
 	onBack,
 }: ReviewSummaryProps) {
+	const { t } = useTranslation()
+
 	return (
 		<div>
 			<h2 className="mb-6 text-gray-800 text-2xl font-semibold">
-				Review Configuration
+				{t("review.title")}
 			</h2>
 
 			<div className="py-6">
@@ -27,21 +30,21 @@ export function ReviewSummary({
 					selectedPage={
 						concatenatedConfigs?.[5]?.page_data[0]?.page_index || 5
 					}
-					displayName="LED 1 Preview"
+					displayName={t("ledPreview.led1Preview")}
 				/>
 				<LEDPreview
 					config={concatenatedConfigs?.[6] || baseConfig}
 					selectedPage={
 						concatenatedConfigs?.[6]?.page_data[0]?.page_index || 6
 					}
-					displayName="LED 2 Preview"
+					displayName={t("ledPreview.led2Preview")}
 				/>
 				<LEDPreview
 					config={concatenatedConfigs?.[7] || baseConfig}
 					selectedPage={
 						concatenatedConfigs?.[7]?.page_data[0]?.page_index || 7
 					}
-					displayName="LED 3 Preview"
+					displayName={t("ledPreview.led3Preview")}
 				/>
 			</div>
 
@@ -50,13 +53,13 @@ export function ReviewSummary({
 					type="button"
 					onClick={onBack}
 					className="bg-gray-100 text-gray-600 border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-200"
-					value="Back to Mapping"
+					value={t("buttons.backToMapping")}
 				/>
 				<input
 					type="button"
 					onClick={onConfirm}
 					className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
-					value="Save Configuration"
+					value={t("buttons.saveConfiguration")}
 				/>
 			</div>
 		</div>
