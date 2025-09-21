@@ -14,6 +14,7 @@ import type {
 	MergeStep,
 } from "./types"
 import { isTauri } from "./utils/platform"
+import type { ConcatenatedLEDConfig } from "./utils/frameUtils"
 
 function App() {
 	const [currentStep, setCurrentStep] = useState<MergeStep>("selectBase")
@@ -21,6 +22,9 @@ function App() {
 	const [baseFileName, setBaseFileName] = useState<string | null>(null)
 	const [additionalFiles, setAdditionalFiles] = useState<FileInfo[]>([])
 	const [mappings, setMappings] = useState<MergeMapping[]>([])
+	const [concatenatedConfigs, setConcatenatedConfigs] = useState<{
+		[key: number]: ConcatenatedLEDConfig
+	} | null>(null)
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 
@@ -72,7 +76,7 @@ function App() {
 		setBaseFileName(null)
 	}
 
-	const handleMappingComplete = (newMappings: MergeMapping[]) => {
+	const handleMappingComplete = (newMappings: MergeMapping[], newConcatenatedConfigs: { [key: number]: ConcatenatedLEDConfig }) => {
 		// Create mappings for all pages, but only edit custom pages (5, 6, 7)
 		const allMappings =
 			baseConfig?.page_data.map((page) => {
@@ -88,6 +92,7 @@ function App() {
 			}) || []
 
 		setMappings(allMappings)
+		setConcatenatedConfigs(newConcatenatedConfigs)
 		setCurrentStep("review")
 	}
 
@@ -155,6 +160,7 @@ function App() {
 		setBaseFileName(null)
 		setAdditionalFiles([])
 		setMappings([])
+		setConcatenatedConfigs(null)
 		setError(null)
 	}
 
@@ -277,6 +283,7 @@ function App() {
 					<ReviewSummary
 						baseConfig={baseConfig}
 						mappings={mappings}
+						concatenatedConfigs={concatenatedConfigs}
 						onConfirm={handleSaveConfiguration}
 						onBack={() => setCurrentStep("configureMappings")}
 					/>

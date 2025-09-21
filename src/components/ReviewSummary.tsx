@@ -1,9 +1,11 @@
 import type { LEDConfiguration, MergeMapping } from "../types"
 import { LEDPreview } from "./LEDPreview"
+import type { ConcatenatedLEDConfig } from "../utils/frameUtils"
 
 interface ReviewSummaryProps {
 	baseConfig: LEDConfiguration
 	mappings: MergeMapping[]
+	concatenatedConfigs: { [key: number]: ConcatenatedLEDConfig } | null
 	onConfirm: () => void
 	onBack: () => void
 }
@@ -11,6 +13,7 @@ interface ReviewSummaryProps {
 export function ReviewSummary({
 	baseConfig,
 	mappings,
+	concatenatedConfigs,
 	onConfirm,
 	onBack,
 }: ReviewSummaryProps) {
@@ -20,18 +23,18 @@ export function ReviewSummary({
 
 			<div className="preview-section">
 				<LEDPreview
-					config={baseConfig}
-					selectedPage={5}
+					config={concatenatedConfigs?.[5] || baseConfig}
+					selectedPage={concatenatedConfigs?.[5]?.page_data[0]?.page_index || 5}
 					displayName="LED 1 Preview"
 				/>
 				<LEDPreview
-					config={baseConfig}
-					selectedPage={6}
+					config={concatenatedConfigs?.[6] || baseConfig}
+					selectedPage={concatenatedConfigs?.[6]?.page_data[0]?.page_index || 6}
 					displayName="LED 2 Preview"
 				/>
 				<LEDPreview
-					config={baseConfig}
-					selectedPage={7}
+					config={concatenatedConfigs?.[7] || baseConfig}
+					selectedPage={concatenatedConfigs?.[7]?.page_data[0]?.page_index || 7}
 					displayName="LED 3 Preview"
 				/>
 			</div>

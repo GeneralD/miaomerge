@@ -2,12 +2,12 @@ import { useState, useMemo } from "react"
 import type { LEDConfiguration, MergeMapping, SlotFile } from "../types"
 import { LEDPreview } from "./LEDPreview"
 import { FileSelectButton } from "./FileSelectButton"
-import { concatenateSlotFrames, validateAllSlots } from "../utils/frameUtils"
+import { concatenateSlotFrames, validateAllSlots, type ConcatenatedLEDConfig } from "../utils/frameUtils"
 
 interface SlotMapperProps {
 	baseConfig: LEDConfiguration
 	baseFileName: string
-	onMappingComplete: (mappings: MergeMapping[]) => void
+	onMappingComplete: (mappings: MergeMapping[], concatenatedConfigs: { [key: number]: ConcatenatedLEDConfig }) => void
 	onBack: () => void
 }
 
@@ -120,7 +120,7 @@ export function SlotMapper({
 			}
 		})
 
-		onMappingComplete(mappings)
+		onMappingComplete(mappings, concatenatedConfigs)
 	}
 
 	return (
