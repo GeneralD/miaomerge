@@ -34,6 +34,9 @@
 		"configurationComplete": "配置完成",
 		"proceedToReview": "继续审查"
 	},
+	"ledSlot": {
+		"ledTitle": "LED {{number}}"
+	},
 	"review": {
 		"title": "审查配置"
 	},

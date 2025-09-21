@@ -102,11 +102,13 @@ function App() {
 			let mergedConfig: LEDConfiguration
 
 			// Create filename with base name and timestamp
-			const timestamp = new Date().toISOString()
-				.replace(/:/g, '-')
-				.replace(/\..+/, '')
-				.replace('T', '_')
-			const baseNameWithoutExt = baseFileName?.replace(/\.json$/i, '') || "config"
+			const timestamp = new Date()
+				.toISOString()
+				.replace(/:/g, "-")
+				.replace(/\..+/, "")
+				.replace("T", "_")
+			const baseNameWithoutExt =
+				baseFileName?.replace(/\.json$/i, "") || "config"
 			const fileName = `${baseNameWithoutExt}_${timestamp}.json`
 
 			if (isTauri()) {
@@ -208,7 +210,7 @@ function App() {
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
 							currentStep === "selectBase"
-								? "bg-white text-secondary-500 transform scale-105 shadow-lg"
+								? "bg-white text-green-700 transform scale-105 shadow-lg"
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
@@ -217,7 +219,7 @@ function App() {
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
 							currentStep === "configureMappings"
-								? "bg-white text-secondary-500 transform scale-105 shadow-lg"
+								? "bg-white text-green-700 transform scale-105 shadow-lg"
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
@@ -226,7 +228,7 @@ function App() {
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
 							currentStep === "review"
-								? "bg-white text-secondary-500 transform scale-105 shadow-lg"
+								? "bg-white text-green-700 transform scale-105 shadow-lg"
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
@@ -235,7 +237,7 @@ function App() {
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
 							currentStep === "complete"
-								? "bg-white text-secondary-500 transform scale-105 shadow-lg"
+								? "bg-white text-green-700 transform scale-105 shadow-lg"
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
@@ -243,7 +245,7 @@ function App() {
 					</div>
 				</div>
 
-				<div className="bg-white rounded-2xl p-8 shadow-2xl min-h-96">
+				<div className="backdrop-blur-md bg-white/20 rounded-2xl p-8 shadow-2xl min-h-96">
 					{currentStep === "selectBase" && (
 						<>
 							<FileSelector
@@ -257,39 +259,30 @@ function App() {
 										<LEDPreview
 											config={baseConfig}
 											selectedPage={5}
-											displayName={t(
-												"ledPreview.ledPreview",
-												{ number: 1 }
-											)}
+											slot={1}
 										/>
 										<LEDPreview
 											config={baseConfig}
 											selectedPage={6}
-											displayName={t(
-												"ledPreview.ledPreview",
-												{ number: 2 }
-											)}
+											slot={2}
 										/>
 										<LEDPreview
 											config={baseConfig}
 											selectedPage={7}
-											displayName={t(
-												"ledPreview.ledPreview",
-												{ number: 3 }
-											)}
+											slot={3}
 										/>
 									</div>
 									<div className="flex justify-between items-center pt-6 border-t border-gray-200 mt-6 gap-4">
 										<input
 											type="button"
 											onClick={handleReselectBase}
-											className="bg-gray-100 text-gray-600 border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-200 hover:-translate-y-0.5"
+											className="backdrop-blur-sm bg-white/10 text-white border border-white/30 px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/20 hover:-translate-y-0.5"
 											value={t("buttons.reselectFile")}
 										/>
 										<input
 											type="button"
 											onClick={handleProceedToMapping}
-											className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+											className="bg-gradient-to-br from-green-500 to-emerald-600 text-white border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
 											value={t("buttons.proceed")}
 										/>
 									</div>
@@ -320,16 +313,16 @@ function App() {
 
 					{currentStep === "complete" && (
 						<div className="text-center py-12">
-							<h2 className="text-green-500 mb-4 text-3xl font-bold">
+							<h2 className="text-green-400 mb-4 text-3xl font-bold">
 								{t("complete.success")}
 							</h2>
-							<p className="text-gray-600 mb-8 text-lg">
+							<p className="text-white mb-8 text-lg">
 								{t("complete.message")}
 							</p>
 							<input
 								type="button"
 								onClick={resetApp}
-								className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+								className="bg-gradient-to-br from-green-500 to-emerald-600 text-white border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
 								value={t("buttons.createAnother")}
 							/>
 						</div>

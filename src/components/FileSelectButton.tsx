@@ -19,7 +19,7 @@ interface FileSelectButtonProps {
 export function FileSelectButton({
 	onFileSelect,
 	title = "Select JSON File",
-	className = "bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none rounded px-4 py-2 text-sm cursor-pointer transition-transform duration-200 w-full mt-2 hover:-translate-y-0.5 hover:shadow-md",
+	className = "bg-gradient-to-br from-green-500 to-emerald-600 text-white border-none rounded px-4 py-2 text-sm cursor-pointer transition-transform duration-200 w-full mt-2 hover:-translate-y-0.5 hover:shadow-md",
 	children,
 	loadConfig = true,
 }: FileSelectButtonProps) {

@@ -139,10 +139,10 @@ export function SlotMapper({
 
 	return (
 		<div>
-			<h2 className="mb-2 text-gray-800 text-2xl font-semibold">
+			<h2 className="mb-2 text-white text-2xl font-semibold">
 				Configure Custom LED Pages
 			</h2>
-			<p className="mb-6 text-gray-600 italic">
+			<p className="mb-6 text-green-100 italic">
 				Add configuration files for each LED slot.
 			</p>
 
@@ -154,11 +154,13 @@ export function SlotMapper({
 					return (
 						<div
 							key={slotNumber}
-							className="border border-gray-200 rounded-lg p-4 mb-4 transition-shadow duration-200 hover:shadow-md"
+							className="border border-green-400/30 rounded-lg p-4 mb-4 transition-shadow duration-200 hover:shadow-md"
 						>
 							<div className="flex justify-between items-center mb-4">
-								<h3 className="text-primary-500 m-0 text-lg font-semibold">
-									LED {slotNumber - 4}
+								<h3 className="text-green-400 m-0 text-lg font-semibold">
+									{t("ledSlot.ledTitle", {
+										number: slotNumber - 4,
+									})}
 								</h3>
 							</div>
 
@@ -166,9 +168,9 @@ export function SlotMapper({
 								{files.map((file, fileIndex) => (
 									<div
 										key={`${file.fileInfo.path}-${file.sourceLED}`}
-										className="flex items-center gap-2 p-2 border border-gray-200 rounded mb-2 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+										className="flex items-center gap-2 p-2 border border-green-400/30 rounded mb-2 backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-colors duration-200"
 									>
-										<span className="flex-1 text-sm text-gray-800">
+										<span className="flex-1 text-sm text-white">
 											{file.fileInfo.name}
 										</span>
 										<select
@@ -180,7 +182,7 @@ export function SlotMapper({
 													Number(e.target.value)
 												)
 											}
-											className="px-2 py-1 border border-gray-300 rounded text-xs bg-white"
+											className="px-2 py-1 border border-green-400/30 rounded text-xs backdrop-blur-sm bg-white/10 text-green-100"
 										>
 											<option value={5}>LED 1</option>
 											<option value={6}>LED 2</option>
@@ -213,7 +215,7 @@ export function SlotMapper({
 									title={t("slotMapper.addFileFor", {
 										ledNumber: slotNumber - 4,
 									})}
-									className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none rounded px-4 py-2 text-sm cursor-pointer transition-transform duration-200 w-full mt-2 hover:-translate-y-0.5 hover:shadow-md"
+									className="bg-gradient-to-br from-green-500 to-emerald-600 text-white border-none rounded px-4 py-2 text-sm cursor-pointer transition-transform duration-200 w-full mt-2 hover:-translate-y-0.5 hover:shadow-md"
 								>
 									{t("buttons.addFile")}
 								</FileSelectButton>
@@ -233,7 +235,7 @@ export function SlotMapper({
 											].page_data[0]?.page_index ||
 											slotNumber
 										}
-										displayName={t("ledPreview.preview")}
+										slot={slotNumber - 4}
 									/>
 									{concatenatedConfigs[
 										slotNumber as keyof typeof concatenatedConfigs
@@ -258,7 +260,7 @@ export function SlotMapper({
 				<input
 					type="button"
 					onClick={onBack}
-					className="bg-gray-100 text-gray-600 border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-200"
+					className="backdrop-blur-sm bg-white/10 text-white border border-white/30 px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/20"
 					value={t("buttons.back")}
 				/>
 				<input
@@ -266,8 +268,8 @@ export function SlotMapper({
 					onClick={handleComplete}
 					className={`px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 border-none ${
 						!isAllValid
-							? "bg-gray-300 text-gray-500 cursor-not-allowed"
-							: "bg-gradient-to-br from-blue-500 to-purple-600 text-white hover:-translate-y-1 hover:shadow-lg"
+							? "backdrop-blur-sm bg-black/20 text-gray-400 cursor-not-allowed border border-gray-500"
+							: "bg-gradient-to-br from-green-500 to-emerald-600 text-white hover:-translate-y-1 hover:shadow-lg"
 					}`}
 					value={t("buttons.continueToReview")}
 					disabled={!isAllValid}

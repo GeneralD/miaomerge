@@ -20,7 +20,7 @@ export function ReviewSummary({
 
 	return (
 		<div>
-			<h2 className="mb-6 text-gray-800 text-2xl font-semibold">
+			<h2 className="mb-6 text-white text-2xl font-semibold">
 				{t("review.title")}
 			</h2>
 
@@ -30,21 +30,21 @@ export function ReviewSummary({
 					selectedPage={
 						concatenatedConfigs?.[5]?.page_data[0]?.page_index || 5
 					}
-					displayName={t("ledPreview.ledPreview", { number: 1 })}
+					slot={1}
 				/>
 				<LEDPreview
 					config={concatenatedConfigs?.[6] || baseConfig}
 					selectedPage={
 						concatenatedConfigs?.[6]?.page_data[0]?.page_index || 6
 					}
-					displayName={t("ledPreview.ledPreview", { number: 2 })}
+					slot={2}
 				/>
 				<LEDPreview
 					config={concatenatedConfigs?.[7] || baseConfig}
 					selectedPage={
 						concatenatedConfigs?.[7]?.page_data[0]?.page_index || 7
 					}
-					displayName={t("ledPreview.ledPreview", { number: 3 })}
+					slot={3}
 				/>
 			</div>
 
@@ -52,13 +52,13 @@ export function ReviewSummary({
 				<input
 					type="button"
 					onClick={onBack}
-					className="bg-gray-100 text-gray-600 border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:bg-gray-200"
+					className="backdrop-blur-sm bg-white/10 text-white border border-white/30 px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/20"
 					value={t("buttons.backToMapping")}
 				/>
 				<input
 					type="button"
 					onClick={onConfirm}
-					className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+					className="bg-gradient-to-br from-green-500 to-emerald-600 text-white border-none px-6 py-3 text-base rounded-lg cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
 					value={t("buttons.saveConfiguration")}
 				/>
 			</div>
