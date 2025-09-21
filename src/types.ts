@@ -52,6 +52,7 @@ export interface SlotFile {
 
 export interface MergeMapping {
 	slot: number
+	action: "keep" | "replace" | "combine"
 	sourceFile?: string
 	sourceSlot?: number
 }

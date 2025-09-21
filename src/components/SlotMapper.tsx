@@ -17,9 +17,11 @@ import { LEDPreview } from "./LEDPreview"
 interface SlotMapperProps {
 	baseConfig: LEDConfiguration
 	baseFileName: string
+	savedSlotFiles?: SlotFiles | null
 	onMappingComplete: (
 		mappings: MergeMapping[],
-		concatenatedConfigs: { [key: number]: ConcatenatedLEDConfig }
+		concatenatedConfigs: { [key: number]: ConcatenatedLEDConfig },
+		slotFiles: SlotFiles
 	) => void
 	onBack: () => void
 }
@@ -31,34 +33,37 @@ interface SlotFiles {
 export function SlotMapper({
 	baseConfig,
 	baseFileName,
+	savedSlotFiles,
 	onMappingComplete,
 	onBack,
 }: SlotMapperProps) {
 	const { t } = useTranslation()
-	// Initialize with base file - each LED slot gets its corresponding LED
-	const [slotFiles, setSlotFiles] = useState<SlotFiles>({
-		5: [
-			{
-				fileInfo: { name: baseFileName, path: "" },
-				config: baseConfig,
-				sourceLED: 5,
-			},
-		],
-		6: [
-			{
-				fileInfo: { name: baseFileName, path: "" },
-				config: baseConfig,
-				sourceLED: 6,
-			},
-		],
-		7: [
-			{
-				fileInfo: { name: baseFileName, path: "" },
-				config: baseConfig,
-				sourceLED: 7,
-			},
-		],
-	})
+	// Initialize with saved state if available, otherwise use base file
+	const [slotFiles, setSlotFiles] = useState<SlotFiles>(
+		savedSlotFiles || {
+			5: [
+				{
+					fileInfo: { name: baseFileName, path: "" },
+					config: baseConfig,
+					sourceLED: 5,
+				},
+			],
+			6: [
+				{
+					fileInfo: { name: baseFileName, path: "" },
+					config: baseConfig,
+					sourceLED: 6,
+				},
+			],
+			7: [
+				{
+					fileInfo: { name: baseFileName, path: "" },
+					config: baseConfig,
+					sourceLED: 7,
+				},
+			],
+		}
+	)
 
 	const handleAddFileToSlot = (
 		slotNumber: number,
@@ -128,13 +133,14 @@ export function SlotMapper({
 				const file = slotFiles[slotNumber][0]
 				mappings.push({
 					slot: slotNumber,
+					action: "replace",
 					sourceFile: file.fileInfo.path || undefined,
 					sourceSlot: file.sourceLED,
 				})
 			}
 		})
 
-		onMappingComplete(mappings, concatenatedConfigs)
+		onMappingComplete(mappings, concatenatedConfigs, slotFiles)
 	}
 
 	return (

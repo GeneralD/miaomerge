@@ -16,6 +16,7 @@ import type {
 	LEDConfiguration,
 	MergeMapping,
 	MergeStep,
+	SlotFile,
 } from "./types"
 import type { ConcatenatedLEDConfig } from "./utils/frameUtils"
 import { isTauri } from "./utils/platform"
@@ -28,6 +29,9 @@ function App() {
 	const [mappings, setMappings] = useState<MergeMapping[]>([])
 	const [concatenatedConfigs, setConcatenatedConfigs] = useState<{
 		[key: number]: ConcatenatedLEDConfig
+	} | null>(null)
+	const [savedSlotFiles, setSavedSlotFiles] = useState<{
+		[key: number]: SlotFile[]
 	} | null>(null)
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
@@ -73,7 +77,8 @@ function App() {
 
 	const handleMappingComplete = (
 		newMappings: MergeMapping[],
-		newConcatenatedConfigs: { [key: number]: ConcatenatedLEDConfig }
+		newConcatenatedConfigs: { [key: number]: ConcatenatedLEDConfig },
+		slotFiles: { [key: number]: SlotFile[] }
 	) => {
 		// Create mappings for all pages, but only edit custom pages (5, 6, 7)
 		const allMappings =
@@ -91,6 +96,7 @@ function App() {
 
 		setMappings(allMappings)
 		setConcatenatedConfigs(newConcatenatedConfigs)
+		setSavedSlotFiles(slotFiles)
 		setCurrentStep("review")
 	}
 
@@ -168,6 +174,7 @@ function App() {
 		setBaseFileName(null)
 		setMappings([])
 		setConcatenatedConfigs(null)
+		setSavedSlotFiles(null)
 		setError(null)
 	}
 
@@ -301,6 +308,7 @@ function App() {
 							<SlotMapper
 								baseConfig={baseConfig}
 								baseFileName={baseFileName}
+								savedSlotFiles={savedSlotFiles}
 								onMappingComplete={handleMappingComplete}
 								onBack={() => setCurrentStep("selectBase")}
 							/>
