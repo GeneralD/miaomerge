@@ -53,13 +53,30 @@ export function LEDPreview({
 		return colors;
 	};
 
+	const getFrameInfo = (): string => {
+		const pageData = getPageData();
+		
+		if (
+			!pageData ||
+			!pageData.frames.frame_data ||
+			pageData.frames.frame_data.length === 0
+		) {
+			return "Frame 0/0";
+		}
+
+		const totalFrames = pageData.frames.frame_data.length;
+		const currentFrame = 1; // Always showing the first frame (index 0 = frame 1)
+		
+		return `Frame ${currentFrame}/${totalFrames}`;
+	};
+
 	const colors = getCurrentFrame();
 
 	return (
 		<div className={`led-preview ${className}`}>
 			<div className="led-preview-header">
 				<h4>{displayName || `LED Preview - Page ${selectedPage}`}</h4>
-				<span className="led-count">{TOTAL_LEDS} LEDs</span>
+				<span className="frame-info">{getFrameInfo()}</span>
 			</div>
 			<div className="led-grid">
 				{colors.map((color, index) => (
