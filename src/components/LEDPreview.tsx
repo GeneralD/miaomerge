@@ -109,17 +109,17 @@ export function LEDPreview({
 		<div
 			className={`bg-gray-50 border border-gray-200 rounded-lg p-4 my-4 ${className}`}
 		>
-			<div className="flex justify-between items-center mb-4">
+			<div className="flex justify-between items-center mb-2">
 				<h4 className="text-primary-500 m-0 text-base font-medium">
 					{displayName || `LED Preview - Page ${selectedPage}`}
 				</h4>
 				<span className="text-gray-500 text-sm">{getFrameInfo()}</span>
 			</div>
-			<div className="grid grid-cols-led grid-rows-led gap-px bg-black p-2 rounded-lg max-w-full overflow-hidden">
+			<div className="grid grid-cols-led grid-rows-led bg-black p-[0.8%] rounded-[0.8vw] max-w-full overflow-hidden">
 				{colors.map((color, index) => (
 					<div
 						key={index}
-						className="aspect-square rounded-sm transition-colors duration-200 hover:scale-110 hover:z-10 hover:relative hover:shadow-md"
+						className="aspect-square rounded-[0.2vw] m-[8%] transition-colors duration-200 hover:scale-110 hover:z-10 hover:relative hover:shadow-md"
 						style={{ backgroundColor: color }}
 						title={`LED ${index + 1}: ${color}`}
 					/>
