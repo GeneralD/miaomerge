@@ -152,3 +152,54 @@ The application supports both Tauri (desktop) and web modes:
 - `tauri.conf.json` - Desktop app configuration (1000x700 window)
 - `package.json` - Uses pnpm package manager
 - `mise.toml` - Runtime version management
+
+## Development Session Learnings
+
+### Tailwind CSS Migration (January 2025)
+Successfully migrated the entire application from custom CSS to pure Tailwind utility classes:
+
+#### Custom CSS to Tailwind Mappings
+- `.bg-gradient-primary` → `bg-gradient-to-br from-blue-500 to-purple-600`
+- `.text-shadow` → `drop-shadow-md`
+- `.backdrop-blur-glass` → `backdrop-blur-md`
+
+#### Migration Process
+1. **Replace custom classes in components**: Search and replace all instances across TSX files
+2. **Update App.css**: Remove custom utility classes, keep only base typography styles
+3. **Maintain design consistency**: Ensure gradients and visual effects remain identical
+
+### Multi-File LED Configuration System
+Implemented advanced slot-based architecture for handling multiple configuration files:
+
+#### Frame Concatenation Logic
+- **Validation**: Real-time validation ensuring 1-300 frames per LED slot
+- **State Management**: Pass concatenated configurations through component hierarchy
+- **Warning System**: Display warnings when frame limits are exceeded
+- **Live Updates**: Use `useMemo` for real-time validation with immediate UI feedback
+
+#### Slot Initialization Pattern
+- LED Slot 1 → Base Configuration LED 1 (page index 5)
+- LED Slot 2 → Base Configuration LED 2 (page index 6)
+- LED Slot 3 → Base Configuration LED 3 (page index 7)
+
+### Code Quality Improvements
+#### Debug Code Cleanup
+- **Console.log removal**: Systematically removed all debug logging from production code
+- **Component simplification**: Eliminated unnecessary IIFE patterns and wrapper functions
+- **State consistency**: Fixed navigation data loss by maintaining concatenated configurations
+
+#### Component Design Patterns
+- **Reusable FileSelectButton**: Platform-aware component supporting both Tauri and web modes
+- **Real-time validation**: Immediate button disable/enable based on validation state
+- **Consistent button styling**: Standardized `<input type="button">` usage throughout
+
+### Biome Configuration Best Practices
+#### Auto-generated File Exclusion
+- **Limitation discovered**: Biome doesn't support direct `ignore` property in files configuration
+- **Solution implemented**: Use `.gitignore` with `"useIgnoreFile": true` in biome.json
+- **Patterns added**: `*.min.js`, `*.bundle.js`, `**/generated/**`, `**/*.generated.*`, lock files
+
+#### Development Workflow Integration
+- Biome automatically respects .gitignore patterns
+- No additional configuration needed for standard auto-generated files
+- Consistent exclusion across development tools
