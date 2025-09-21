@@ -34,7 +34,16 @@ function App() {
   };
 
   const handleMappingComplete = (newMappings: MergeMapping[]) => {
-    setMappings(newMappings);
+    // Create mappings for all pages, but only edit custom pages (5, 6, 7)
+    const allMappings = baseConfig?.page_data.map(page => {
+      const editMapping = newMappings.find(m => m.slot === page.page_index);
+      return editMapping || {
+        slot: page.page_index,
+        action: 'keep' as const
+      };
+    }) || [];
+    
+    setMappings(allMappings);
     setCurrentStep('review');
   };
 

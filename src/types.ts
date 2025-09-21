@@ -1,16 +1,30 @@
 export interface LEDConfiguration {
-  pages: LEDPage[];
-  [key: string]: any;
+  product_info: any;
+  page_num: number;
+  page_data: PageData[];
 }
 
-export interface LEDPage {
-  slot: number;
-  frames: LEDFrame[];
+export interface PageData {
+  valid: number;
+  page_index: number;
+  lightness: number;
+  speed_ms: number;
+  color: any;
+  word_page: any;
+  frames: FramesData;
+  keyframes: any;
+  '//': string;
 }
 
-export interface LEDFrame {
-  ledColors: string[];
-  delay: number;
+export interface FramesData {
+  valid?: number;
+  frame_num?: number;
+  frame_data: FrameData[];
+}
+
+export interface FrameData {
+  frame_index: number;
+  frame_RGB: string[];
 }
 
 export interface FileInfo {

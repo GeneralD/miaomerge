@@ -20,15 +20,16 @@ export function ReviewSummary({
       <div className="summary-content">
         <div className="base-info">
           <h3>Base Configuration</h3>
-          <p>Total Slots: {baseConfig.pages.length}</p>
+          <p>Total Pages: {baseConfig.page_data.length}</p>
+          <p>Editable Custom Pages: {mappings.length}</p>
         </div>
 
         <div className="mappings-summary">
-          <h3>Slot Mappings</h3>
+          <h3>Custom Page Mappings</h3>
           <table>
             <thead>
               <tr>
-                <th>Slot</th>
+                <th>Page</th>
                 <th>Action</th>
                 <th>Source File</th>
               </tr>
@@ -36,7 +37,7 @@ export function ReviewSummary({
             <tbody>
               {mappings.map(mapping => (
                 <tr key={mapping.slot}>
-                  <td>Slot {mapping.slot}</td>
+                  <td>Page {mapping.slot}</td>
                   <td className={`action-${mapping.action}`}>
                     {mapping.action === 'keep' && '✓ Keep Original'}
                     {mapping.action === 'replace' && '↻ Replace'}
