@@ -1,7 +1,7 @@
 {
 	"app": {
 		"title": "🎮 Cyberboard Config Merger",
-		"subtitle": "CYBERBOARD R4 LED設定をマージ・カスタマイズ"
+		"subtitle": "CYBERBOARD R2以降のLED設定をマージ・カスタマイズ"
 	},
 	"steps": {
 		"selectBase": "1. ベース選択",

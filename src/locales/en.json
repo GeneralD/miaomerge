@@ -1,7 +1,7 @@
 {
 	"app": {
 		"title": "🎮 Cyberboard Config Merger",
-		"subtitle": "Merge and customize your CYBERBOARD R4 LED configurations"
+		"subtitle": "Merge and customize your CYBERBOARD R2+ LED configurations"
 	},
 	"steps": {
 		"selectBase": "1. Select Base",

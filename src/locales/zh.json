@@ -1,7 +1,7 @@
 {
 	"app": {
 		"title": "🎮 Cyberboard Config Merger",
-		"subtitle": "合并和自定义您的 CYBERBOARD R4 LED 配置"
+		"subtitle": "合并和自定义您的 CYBERBOARD R2+ LED 配置"
 	},
 	"steps": {
 		"selectBase": "1. 选择基础配置",
