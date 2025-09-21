@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import type { LEDConfiguration, PageData } from "../types";
+import type { LEDConfiguration } from "../types";
 
 interface LEDPreviewProps {
     config: LEDConfiguration | null;
@@ -123,24 +123,33 @@ export function LEDPreview({
             </div>
             <div className="led-controls">
                 <div className="control-group">
-                    <button
+                    <input
+                        type="button"
                         onClick={togglePlayPause}
                         className="control-button"
-                    >
-                        {isPlaying ? "⏸️" : "▶️"}
-                    </button>
-                    <button onClick={resetToFirst} className="control-button">
-                        ⏮️
-                    </button>
+                        value={isPlaying ? "⏸" : "▶"}
+                    />
+                    <input
+                        type="button"
+                        onClick={resetToFirst}
+                        className="control-button"
+                        value="⏮"
+                    />
                 </div>
                 <div className="speed-controls">
-                    <button onClick={speedDown} className="speed-button">
-                        ➖
-                    </button>
+                    <input
+                        type="button"
+                        onClick={speedDown}
+                        className="speed-button"
+                        value="-"
+                    />
                     <span className="speed-display">{speed}Hz</span>
-                    <button onClick={speedUp} className="speed-button">
-                        ➕
-                    </button>
+                    <input
+                        type="button"
+                        onClick={speedUp}
+                        className="speed-button"
+                        value="+"
+                    />
                 </div>
             </div>
         </div>

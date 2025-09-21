@@ -168,7 +168,11 @@ function App() {
             {error && (
                 <div className="error-message">
                     <p>{error}</p>
-                    <button onClick={() => setError(null)}>Dismiss</button>
+                    <input
+                        type="button"
+                        onClick={() => setError(null)}
+                        value="Dismiss"
+                    />
                 </div>
             )}
 
@@ -238,18 +242,18 @@ function App() {
                                             />
                                         </div>
                                         <div className="step-navigation">
-                                            <button
+                                            <input
+                                                type="button"
                                                 onClick={handleReselectBase}
                                                 className="reselect-button"
-                                            >
-                                                ファイルを選び直す
-                                            </button>
-                                            <button
+                                                value="ファイルを選び直す"
+                                            />
+                                            <input
+                                                type="button"
                                                 onClick={handleProceedToMapping}
                                                 className="continue-button"
-                                            >
-                                                次に進む
-                                            </button>
+                                                value="次に進む"
+                                            />
                                         </div>
                                     </>
                                 )
@@ -261,7 +265,6 @@ function App() {
                 {currentStep === "configureMappings" && baseConfig && (
                     <SlotMapper
                         baseConfig={baseConfig}
-                        availableFiles={additionalFiles}
                         onMappingComplete={handleMappingComplete}
                         onBack={() => setCurrentStep("selectBase")}
                     />
@@ -280,9 +283,12 @@ function App() {
                     <div className="completion-message">
                         <h2>✅ Configuration Saved Successfully!</h2>
                         <p>Your merged configuration has been saved.</p>
-                        <button onClick={resetApp} className="restart-button">
-                            Create Another Configuration
-                        </button>
+                        <input
+                            type="button"
+                            onClick={resetApp}
+                            className="restart-button"
+                            value="Create Another Configuration"
+                        />
                     </div>
                 )}
             </div>

@@ -32,11 +32,22 @@ export interface FileInfo {
     path: string;
 }
 
+export interface SelectedFile {
+    fileInfo: FileInfo;
+    config: LEDConfiguration;
+    selectedLED: number; // 5, 6, or 7
+}
+
+export interface SlotFile {
+    fileInfo: FileInfo;
+    config: LEDConfiguration;
+    sourceLED: number; // Which LED from the source file to use
+}
+
 export interface MergeMapping {
     slot: number;
-    action: "keep" | "replace" | "combine";
     sourceFile?: string;
-    targetSlot?: number;
+    sourceSlot?: number;
 }
 
 export type MergeStep =

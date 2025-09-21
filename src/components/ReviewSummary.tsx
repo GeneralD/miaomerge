@@ -18,89 +18,37 @@ export function ReviewSummary({
         <div className="review-summary">
             <h2>Review Configuration</h2>
 
-            <div className="summary-content">
-                <div className="base-info">
-                    <h3>Base Configuration</h3>
-                    <p>Total Pages: {baseConfig.page_data.length}</p>
-                    <p>Editable Custom Pages: {mappings.length}</p>
-                </div>
-
-                <div className="mappings-summary">
-                    <h3>Custom LED Mappings</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>LED</th>
-                                <th>Action</th>
-                                <th>Source File</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {mappings.map((mapping) => (
-                                <tr key={mapping.slot}>
-                                    <td>LED {mapping.slot - 4}</td>
-                                    <td className={`action-${mapping.action}`}>
-                                        {mapping.action === "keep" &&
-                                            "Keep Original"}
-                                        {mapping.action === "replace" &&
-                                            "Replace"}
-                                        {mapping.action === "combine" &&
-                                            "Combine"}
-                                    </td>
-                                    <td>
-                                        {mapping.sourceFile
-                                            ? mapping.sourceFile
-                                                  .split("/")
-                                                  .pop()
-                                            : "-"}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-
-                <div className="stats">
-                    <h3>Summary</h3>
-                    <p>
-                        Kept:{" "}
-                        {mappings.filter((m) => m.action === "keep").length}
-                    </p>
-                    <p>
-                        Replaced:{" "}
-                        {mappings.filter((m) => m.action === "replace").length}
-                    </p>
-                    <p>
-                        Combined:{" "}
-                        {mappings.filter((m) => m.action === "combine").length}
-                    </p>
-                </div>
-
-                <div className="final-preview">
-                    <h3>Final Configuration Preview</h3>
-                    <div className="preview-grid">
-                        {[5, 6, 7].map((pageIndex) => (
-                            <div key={pageIndex} className="page-preview">
-                                <h4>LED {pageIndex - 4}</h4>
-                                <LEDPreview
-                                    config={baseConfig}
-                                    selectedPage={pageIndex}
-                                    displayName={`LED ${pageIndex - 4} Preview`}
-                                    className="compact"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
+            <div className="preview-section">
+                <LEDPreview
+                    config={baseConfig}
+                    selectedPage={5}
+                    displayName="LED 1 Preview"
+                />
+                <LEDPreview
+                    config={baseConfig}
+                    selectedPage={6}
+                    displayName="LED 2 Preview"
+                />
+                <LEDPreview
+                    config={baseConfig}
+                    selectedPage={7}
+                    displayName="LED 3 Preview"
+                />
             </div>
 
             <div className="actions">
-                <button onClick={onBack} className="back-button">
-                    Back to Mapping
-                </button>
-                <button onClick={onConfirm} className="confirm-button">
-                    Save Configuration
-                </button>
+                <input
+                    type="button"
+                    onClick={onBack}
+                    className="back-button"
+                    value="Back to Mapping"
+                />
+                <input
+                    type="button"
+                    onClick={onConfirm}
+                    className="confirm-button"
+                    value="Save Configuration"
+                />
             </div>
         </div>
     );

@@ -148,13 +148,11 @@ body {
     font-style: italic;
 }
 
-.mappings-container {
-    max-height: 400px;
-    overflow-y: auto;
+.led-slots-container {
     margin-bottom: 2rem;
 }
 
-.mapping-item {
+.led-slot-item {
     border: 1px solid #e0e0e0;
     border-radius: 0.5rem;
     padding: 1rem;
@@ -162,8 +160,103 @@ body {
     transition: box-shadow 0.2s;
 }
 
-.mapping-item:hover {
+.led-slot-item:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.file-selection-dropdown {
+    margin-bottom: 1rem;
+}
+
+.slot-select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+}
+
+.slot-select:hover {
+    border-color: #667eea;
+}
+
+.no-selection {
+    text-align: center;
+    padding: 2rem;
+    background: #f8f8f8;
+    border-radius: 0.5rem;
+    color: #999;
+}
+
+.slot-files-list {
+    margin-bottom: 1rem;
+}
+
+.slot-file-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    background: #fafafa;
+}
+
+.slot-file-item:hover {
+    background: #f5f5f5;
+}
+
+.file-name {
+    flex: 1;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.source-led-select {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    font-size: 0.85rem;
+    background: white;
+}
+
+.remove-file-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0;
+    transition: background 0.2s;
+}
+
+.remove-file-btn:hover {
+    background: #ff3838;
+}
+
+.add-slot-file-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.add-slot-file-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 .slot-header {
@@ -484,6 +577,10 @@ table th {
     margin-top: 1rem;
     padding-top: 1rem;
     border-top: 1px solid #eee;
+}
+
+.preview-item {
+    margin-bottom: 1rem;
 }
 
 .final-preview {

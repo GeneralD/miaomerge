@@ -1,14 +1,17 @@
 import { invoke } from "@tauri-apps/api/core";
 import { open } from "@tauri-apps/plugin-dialog";
 import { useState } from "react";
-import type { FileInfo, LEDConfiguration, MergeMapping } from "../types";
+import type { LEDConfiguration, MergeMapping, SlotFile } from "../types";
 import { LEDPreview } from "./LEDPreview";
 
 interface SlotMapperProps {
     baseConfig: LEDConfiguration;
-    availableFiles: FileInfo[];
     onMappingComplete: (mappings: MergeMapping[]) => void;
     onBack: () => void;
+}
+
+interface SlotFiles {
+    [key: number]: SlotFile[]; // key is LED slot (5, 6, or 7)
 }
 
 export function SlotMapper({
@@ -16,35 +19,26 @@ export function SlotMapper({
     onMappingComplete,
     onBack,
 }: SlotMapperProps) {
-    // Filter to only custom LED pages (5, 6, 7)
-    const editablePages = baseConfig.page_data.filter(
-        (page) =>
-            page.page_index === 5 ||
-            page.page_index === 6 ||
-            page.page_index === 7
-    );
+    // Initialize with base file - each LED slot gets its corresponding LED
+    const [slotFiles, setSlotFiles] = useState<SlotFiles>({
+        5: [{
+            fileInfo: { name: "Base Configuration", path: "" },
+            config: baseConfig,
+            sourceLED: 5,
+        }],
+        6: [{
+            fileInfo: { name: "Base Configuration", path: "" },
+            config: baseConfig,
+            sourceLED: 6,
+        }],
+        7: [{
+            fileInfo: { name: "Base Configuration", path: "" },
+            config: baseConfig,
+            sourceLED: 7,
+        }],
+    });
 
-    const [mappings, setMappings] = useState<MergeMapping[]>(
-        editablePages.map((page) => ({
-            slot: page.page_index,
-            action: "keep" as const,
-        }))
-    );
-
-    const [sourceFiles, setSourceFiles] = useState<{ [key: number]: FileInfo }>(
-        {}
-    );
-    const [sourceConfigs, setSourceConfigs] = useState<{
-        [key: number]: LEDConfiguration;
-    }>({});
-
-    const updateMapping = (slot: number, update: Partial<MergeMapping>) => {
-        setMappings((prev) =>
-            prev.map((m) => (m.slot === slot ? { ...m, ...update } : m))
-        );
-    };
-
-    const handleFileSelect = async (slot: number) => {
+    const handleAddFileToSlot = async (slotNumber: number) => {
         try {
             const selected = await open({
                 multiple: false,
@@ -54,16 +48,14 @@ export function SlotMapper({
                         extensions: ["json"],
                     },
                 ],
-                title: `Select source file for LED ${slot - 4}`,
+                title: `Add configuration file for LED ${slotNumber - 4}`,
             });
 
             if (selected && typeof selected === "string") {
                 const name = selected.split("/").pop() || selected;
                 const fileInfo = { name, path: selected };
-                setSourceFiles((prev) => ({ ...prev, [slot]: fileInfo }));
-                updateMapping(slot, { sourceFile: selected });
 
-                // Load the source configuration for preview
+                // Load the configuration
                 try {
                     const config = await invoke<LEDConfiguration>(
                         "load_config",
@@ -71,12 +63,20 @@ export function SlotMapper({
                             path: selected,
                         }
                     );
-                    setSourceConfigs((prev) => ({ ...prev, [slot]: config }));
+
+                    // Add file to the specific slot with LED 1 as default
+                    const newFile: SlotFile = {
+                        fileInfo,
+                        config,
+                        sourceLED: 5, // Default to LED 1 from the source file
+                    };
+
+                    setSlotFiles((prev) => ({
+                        ...prev,
+                        [slotNumber]: [...prev[slotNumber], newFile],
+                    }));
                 } catch (err) {
-                    console.error(
-                        "Failed to load source config for preview:",
-                        err
-                    );
+                    console.error("Failed to load config:", err);
                 }
             }
         } catch (error) {
@@ -84,122 +84,116 @@ export function SlotMapper({
         }
     };
 
+    const handleRemoveFileFromSlot = (slotNumber: number, fileIndex: number) => {
+        setSlotFiles((prev) => ({
+            ...prev,
+            [slotNumber]: prev[slotNumber].filter((_, i) => i !== fileIndex),
+        }));
+    };
+
+    const handleSourceLEDChange = (slotNumber: number, fileIndex: number, newSourceLED: number) => {
+        setSlotFiles((prev) => ({
+            ...prev,
+            [slotNumber]: prev[slotNumber].map((file, i) =>
+                i === fileIndex ? { ...file, sourceLED: newSourceLED } : file
+            ),
+        }));
+    };
+
     const handleComplete = () => {
+        const mappings: MergeMapping[] = [];
+        
+        // Use all files from all slots for the final configuration
+        [5, 6, 7].forEach((slotNumber) => {
+            // For now, just use the first file in each slot (could be enhanced to merge multiple)
+            if (slotFiles[slotNumber].length > 0) {
+                const file = slotFiles[slotNumber][0];
+                mappings.push({
+                    slot: slotNumber,
+                    sourceFile: file.fileInfo.path || undefined,
+                    sourceSlot: file.sourceLED,
+                });
+            }
+        });
+
         onMappingComplete(mappings);
     };
 
     return (
         <div className="slot-mapper">
             <h2>Configure Custom LED Pages</h2>
-            <div className="mappings-container">
-                {editablePages.map((page, index) => (
-                    <div key={page.page_index} className="mapping-item">
-                        <div className="slot-header">
-                            <h3>LED {page.page_index - 4}</h3>
-                            <span className="frame-count">
-                                {page.frames.frame_data?.length || 0} frames
-                            </span>
-                        </div>
+            <p>Add configuration files for each LED slot.</p>
 
-                        <div className="action-selector">
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`action-${page.page_index}`}
-                                    value="keep"
-                                    checked={mappings[index]?.action === "keep"}
-                                    onChange={() =>
-                                        updateMapping(page.page_index, {
-                                            action: "keep",
-                                        })
-                                    }
-                                />
-                                Keep Original
-                            </label>
+            {/* LED Slot Selection */}
+            <div className="led-slots-container">
+                {[5, 6, 7].map((slotNumber) => {
+                    const files = slotFiles[slotNumber];
+                    
+                    return (
+                        <div key={slotNumber} className="led-slot-item">
+                            <div className="slot-header">
+                                <h3>LED {slotNumber - 4}</h3>
+                            </div>
 
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`action-${page.page_index}`}
-                                    value="replace"
-                                    checked={
-                                        mappings[index]?.action === "replace"
-                                    }
-                                    onChange={() =>
-                                        updateMapping(page.page_index, {
-                                            action: "replace",
-                                        })
-                                    }
-                                />
-                                Replace with Another File
-                            </label>
-
-                            <label>
-                                <input
-                                    type="radio"
-                                    name={`action-${page.page_index}`}
-                                    value="combine"
-                                    checked={
-                                        mappings[index]?.action === "combine"
-                                    }
-                                    onChange={() =>
-                                        updateMapping(page.page_index, {
-                                            action: "combine",
-                                        })
-                                    }
-                                />
-                                Combine with Another File
-                            </label>
-                        </div>
-
-                        {(mappings[index]?.action === "replace" ||
-                            mappings[index]?.action === "combine") && (
-                            <div className="file-selection">
-                                <button
-                                    onClick={() =>
-                                        handleFileSelect(page.page_index)
-                                    }
-                                    className="select-button"
-                                >
-                                    {sourceFiles[page.page_index]
-                                        ? `Selected: ${sourceFiles[page.page_index].name}`
-                                        : "Select Source File"}
-                                </button>
-                                {sourceConfigs[page.page_index] && (
-                                    <div className="source-preview">
-                                        <h5>Source File Preview:</h5>
-                                        <LEDPreview
-                                            config={
-                                                sourceConfigs[page.page_index]
-                                            }
-                                            selectedPage={page.page_index}
-                                            displayName="Preview"
-                                            className="compact"
+                            <div className="slot-files-list">
+                                {files.map((file, index) => (
+                                    <div key={index} className="slot-file-item">
+                                        <span className="file-name">{file.fileInfo.name}</span>
+                                        <select
+                                            value={file.sourceLED}
+                                            onChange={(e) => handleSourceLEDChange(slotNumber, index, Number(e.target.value))}
+                                            className="source-led-select"
+                                        >
+                                            <option value={5}>LED 1</option>
+                                            <option value={6}>LED 2</option>
+                                            <option value={7}>LED 3</option>
+                                        </select>
+                                        <input
+                                            type="button"
+                                            onClick={() => handleRemoveFileFromSlot(slotNumber, index)}
+                                            className="remove-file-btn"
+                                            value="×"
                                         />
                                     </div>
-                                )}
+                                ))}
+                                
+                                <input
+                                    type="button"
+                                    onClick={() => handleAddFileToSlot(slotNumber)}
+                                    className="add-slot-file-button"
+                                    value="+ Add File"
+                                />
                             </div>
-                        )}
 
-                        <div className="current-preview">
-                            <LEDPreview
-                                config={baseConfig}
-                                selectedPage={page.page_index}
-                                displayName="Preview"
-                                className="compact"
-                            />
+                            <div className="current-preview">
+                                {files.map((file, index) => (
+                                    <div key={index} className="preview-item">
+                                        <LEDPreview
+                                            config={file.config}
+                                            selectedPage={file.sourceLED}
+                                            displayName="Preview"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             <div className="actions">
-                <button onClick={onBack} className="back-button">
-                    Back
-                </button>
-                <button onClick={handleComplete} className="continue-button">
-                    Continue to Review
-                </button>
+                <input
+                    type="button"
+                    onClick={onBack}
+                    className="back-button"
+                    value="Back"
+                />
+                <input
+                    type="button"
+                    onClick={handleComplete}
+                    className="continue-button"
+                    value="Continue to Review"
+                />
             </div>
         </div>
     );
