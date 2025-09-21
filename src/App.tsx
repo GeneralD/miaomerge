@@ -210,7 +210,7 @@ function App() {
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
 							currentStep === "selectBase"
-								? "bg-white text-green-700 transform scale-105 shadow-lg"
+								? "bg-gradient-to-br from-green-500 to-emerald-600 text-white transform scale-105 shadow-lg"
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
@@ -219,7 +219,7 @@ function App() {
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
 							currentStep === "configureMappings"
-								? "bg-white text-green-700 transform scale-105 shadow-lg"
+								? "bg-gradient-to-br from-green-500 to-emerald-600 text-white transform scale-105 shadow-lg"
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
@@ -228,7 +228,7 @@ function App() {
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
 							currentStep === "review"
-								? "bg-white text-green-700 transform scale-105 shadow-lg"
+								? "bg-gradient-to-br from-green-500 to-emerald-600 text-white transform scale-105 shadow-lg"
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
@@ -237,7 +237,7 @@ function App() {
 					<div
 						className={`px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-md ${
 							currentStep === "complete"
-								? "bg-white text-green-700 transform scale-105 shadow-lg"
+								? "bg-gradient-to-br from-green-500 to-emerald-600 text-white transform scale-105 shadow-lg"
 								: "bg-white bg-opacity-20 text-white"
 						}`}
 					>
