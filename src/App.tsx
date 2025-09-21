@@ -262,9 +262,10 @@ function App() {
                     </>
                 )}
 
-                {currentStep === "configureMappings" && baseConfig && (
+                {currentStep === "configureMappings" && baseConfig && baseFileName && (
                     <SlotMapper
                         baseConfig={baseConfig}
+                        baseFileName={baseFileName}
                         onMappingComplete={handleMappingComplete}
                         onBack={() => setCurrentStep("selectBase")}
                     />

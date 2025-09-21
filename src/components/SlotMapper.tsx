@@ -1,11 +1,11 @@
-import { invoke } from "@tauri-apps/api/core";
-import { open } from "@tauri-apps/plugin-dialog";
 import { useState } from "react";
 import type { LEDConfiguration, MergeMapping, SlotFile } from "../types";
 import { LEDPreview } from "./LEDPreview";
+import { FileSelectButton } from "./FileSelectButton";
 
 interface SlotMapperProps {
     baseConfig: LEDConfiguration;
+    baseFileName: string;
     onMappingComplete: (mappings: MergeMapping[]) => void;
     onBack: () => void;
 }
@@ -16,82 +16,68 @@ interface SlotFiles {
 
 export function SlotMapper({
     baseConfig,
+    baseFileName,
     onMappingComplete,
     onBack,
 }: SlotMapperProps) {
     // Initialize with base file - each LED slot gets its corresponding LED
     const [slotFiles, setSlotFiles] = useState<SlotFiles>({
-        5: [{
-            fileInfo: { name: "Base Configuration", path: "" },
-            config: baseConfig,
-            sourceLED: 5,
-        }],
-        6: [{
-            fileInfo: { name: "Base Configuration", path: "" },
-            config: baseConfig,
-            sourceLED: 6,
-        }],
-        7: [{
-            fileInfo: { name: "Base Configuration", path: "" },
-            config: baseConfig,
-            sourceLED: 7,
-        }],
+        5: [
+            {
+                fileInfo: { name: baseFileName, path: "" },
+                config: baseConfig,
+                sourceLED: 5,
+            },
+        ],
+        6: [
+            {
+                fileInfo: { name: baseFileName, path: "" },
+                config: baseConfig,
+                sourceLED: 6,
+            },
+        ],
+        7: [
+            {
+                fileInfo: { name: baseFileName, path: "" },
+                config: baseConfig,
+                sourceLED: 7,
+            },
+        ],
     });
 
-    const handleAddFileToSlot = async (slotNumber: number) => {
-        try {
-            const selected = await open({
-                multiple: false,
-                filters: [
-                    {
-                        name: "JSON",
-                        extensions: ["json"],
-                    },
-                ],
-                title: `Add configuration file for LED ${slotNumber - 4}`,
-            });
+    const handleAddFileToSlot = (
+        slotNumber: number,
+        fileInfo: any,
+        config: LEDConfiguration
+    ) => {
+        // Add file to the specific slot with LED 1 as default
+        const newFile: SlotFile = {
+            fileInfo,
+            config,
+            sourceLED: 5, // Default to LED 1 from the source file
+        };
 
-            if (selected && typeof selected === "string") {
-                const name = selected.split("/").pop() || selected;
-                const fileInfo = { name, path: selected };
-
-                // Load the configuration
-                try {
-                    const config = await invoke<LEDConfiguration>(
-                        "load_config",
-                        {
-                            path: selected,
-                        }
-                    );
-
-                    // Add file to the specific slot with LED 1 as default
-                    const newFile: SlotFile = {
-                        fileInfo,
-                        config,
-                        sourceLED: 5, // Default to LED 1 from the source file
-                    };
-
-                    setSlotFiles((prev) => ({
-                        ...prev,
-                        [slotNumber]: [...prev[slotNumber], newFile],
-                    }));
-                } catch (err) {
-                    console.error("Failed to load config:", err);
-                }
-            }
-        } catch (error) {
-            console.error("Error selecting file:", error);
-        }
+        setSlotFiles((prev) => ({
+            ...prev,
+            [slotNumber]: [...prev[slotNumber], newFile],
+        }));
     };
 
-    const handleRemoveFileFromSlot = (slotNumber: number, fileIndex: number) => {
+    const handleRemoveFileFromSlot = (
+        slotNumber: number,
+        fileIndex: number
+    ) => {
         setSlotFiles((prev) => ({
             ...prev,
             [slotNumber]: prev[slotNumber].filter((_, i) => i !== fileIndex),
         }));
     };
 
-    const handleSourceLEDChange = (slotNumber: number, fileIndex: number, newSourceLED: number) => {
+    const handleSourceLEDChange = (
+        slotNumber: number,
+        fileIndex: number,
+        newSourceLED: number
+    ) => {
         setSlotFiles((prev) => ({
             ...prev,
             [slotNumber]: prev[slotNumber].map((file, i) =>
@@ -102,7 +88,7 @@ export function SlotMapper({
 
     const handleComplete = () => {
         const mappings: MergeMapping[] = [];
-        
+
         // Use all files from all slots for the final configuration
         [5, 6, 7].forEach((slotNumber) => {
             // For now, just use the first file in each slot (could be enhanced to merge multiple)
@@ -128,7 +114,7 @@ export function SlotMapper({
             <div className="led-slots-container">
                 {[5, 6, 7].map((slotNumber) => {
                     const files = slotFiles[slotNumber];
-                    
+
                     return (
                         <div key={slotNumber} className="led-slot-item">
                             <div className="slot-header">
@@ -138,10 +124,18 @@ export function SlotMapper({
                             <div className="slot-files-list">
                                 {files.map((file, index) => (
                                     <div key={index} className="slot-file-item">
-                                        <span className="file-name">{file.fileInfo.name}</span>
+                                        <span className="file-name">
+                                            {file.fileInfo.name}
+                                        </span>
                                         <select
                                             value={file.sourceLED}
-                                            onChange={(e) => handleSourceLEDChange(slotNumber, index, Number(e.target.value))}
+                                            onChange={(e) =>
+                                                handleSourceLEDChange(
+                                                    slotNumber,
+                                                    index,
+                                                    Number(e.target.value)
+                                                )
+                                            }
                                             className="source-led-select"
                                         >
                                             <option value={5}>LED 1</option>
@@ -150,19 +144,30 @@ export function SlotMapper({
                                         </select>
                                         <input
                                             type="button"
-                                            onClick={() => handleRemoveFileFromSlot(slotNumber, index)}
+                                            onClick={() =>
+                                                handleRemoveFileFromSlot(
+                                                    slotNumber,
+                                                    index
+                                                )
+                                            }
                                             className="remove-file-btn"
                                             value="×"
                                         />
                                     </div>
                                 ))}
-                                
-                                <input
-                                    type="button"
-                                    onClick={() => handleAddFileToSlot(slotNumber)}
-                                    className="add-slot-file-button"
-                                    value="+ Add File"
-                                />
+
+                                <FileSelectButton
+                                    onFileSelect={(fileInfo, config) =>
+                                        handleAddFileToSlot(
+                                            slotNumber,
+                                            fileInfo,
+                                            config
+                                        )
+                                    }
+                                    title={`Add configuration file for LED ${slotNumber - 4}`}
+                                >
+                                    + Add File
+                                </FileSelectButton>
                             </div>
 
                             <div className="current-preview">
