@@ -133,7 +133,10 @@ export function MergeWorkflowProvider({ children }: { children: ReactNode }) {
 			}
 
 			console.log("DEBUG: concatenatedConfigs:", concatenatedConfigs)
-			console.log("DEBUG: Object.keys(concatenatedConfigs):", Object.keys(concatenatedConfigs))
+			console.log(
+				"DEBUG: Object.keys(concatenatedConfigs):",
+				Object.keys(concatenatedConfigs)
+			)
 
 			// Start with base config to preserve Fn_key and other properties
 			mergedConfig = { ...baseConfig }
@@ -154,7 +157,7 @@ export function MergeWorkflowProvider({ children }: { children: ReactNode }) {
 					// Important: Set correct page_index before merging and only use frames data
 					const sourcePageData = concatenatedConfig.page_data[0]
 					const newPageData = { ...mergedConfig.page_data[pageIndex] }
-					
+
 					// Only replace frames data, keep other page properties from base
 					newPageData.frames = sourcePageData.frames
 					newPageData.page_index = slot

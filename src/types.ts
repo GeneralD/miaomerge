@@ -36,7 +36,6 @@ export interface FrameData {
 	frame_RGB: string[]
 }
 
-
 export interface FileInfo {
 	name: string
 	path: string
