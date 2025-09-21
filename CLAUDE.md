@@ -203,3 +203,42 @@ Implemented advanced slot-based architecture for handling multiple configuration
 - Biome automatically respects .gitignore patterns
 - No additional configuration needed for standard auto-generated files
 - Consistent exclusion across development tools
+
+## Memory Notes
+
+### Internationalization Implementation (2025-09-21)
+- Successfully implemented full i18n support with react-i18next
+- Supports English, Japanese, and Chinese languages
+- Auto-detects browser language with cookie persistence
+- Language selector component positioned at fixed top-right
+
+### UI Transformation to Cyberpunk Theme
+- Migrated entire color scheme from blue to green (#00FF00)
+- Implemented Matrix rain background using react-mdr library
+- Added neon glow effects with CSS text-shadow
+- Applied backdrop blur and transparency to all UI boxes
+- Integrated Google Fonts (Press Start 2P) for retro gaming aesthetic
+
+### State Persistence Architecture
+- Implemented state preservation when navigating between screens
+- Added `savedSlotFiles` state in App.tsx to maintain SlotMapper configurations
+- Fixed issue where settings were lost when moving from Review (screen 3) to Configure (screen 2)
+- State now properly cascades through: App → SlotMapper → Review
+
+### Merge Logic Simplification
+- Removed Rust backend `merge_configs` command dependency
+- Implemented complete merge logic in TypeScript using `concatenatedConfigs`
+- Unified merge behavior between Tauri (Mac) and web versions
+- Fixed "Invalid mapping for slot 5" error by properly handling action field
+- Base configuration no longer receives special treatment - treated as regular config file
+
+### TypeScript Interface Updates
+- Added `action` field to MergeMapping interface (keep/replace/combine)
+- Extended SlotMapperProps to include savedSlotFiles for state persistence
+- Modified onMappingComplete callback to pass slotFiles for state preservation
+
+### Critical Bug Fixes
+- Fixed validation error where empty path with "replace" action was invalid
+- Resolved port 1420 conflict issues during development
+- Fixed missing action field in merge mappings causing backend validation failures
+- Corrected frame concatenation logic to properly handle multiple files per slot
