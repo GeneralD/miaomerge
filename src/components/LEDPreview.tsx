@@ -119,11 +119,11 @@ export function LEDPreview({
 				</h4>
 				<span className="text-green-200 text-sm">{getFrameInfo()}</span>
 			</div>
-			<div className="grid grid-cols-led grid-rows-led bg-black p-[0.8%] rounded-[0.8vw] max-w-full overflow-hidden">
+			<div className="grid grid-cols-led grid-rows-led bg-black p-[0.8%] max-w-full overflow-hidden">
 				{colors.map((color, ledIndex) => (
 					<div
 						key={`led-${ledIndex}-${color}`}
-						className="aspect-square rounded-[0.2vw] m-[8%] transition-colors duration-200 hover:scale-110 hover:z-10 hover:relative hover:shadow-md"
+						className="aspect-square rounded-[20%] m-[8%] transition-colors duration-200 hover:scale-110 hover:z-10 hover:relative hover:shadow-md"
 						style={{ backgroundColor: color }}
 						title={`LED ${ledIndex + 1}: ${color}`}
 					/>
