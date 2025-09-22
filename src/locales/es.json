@@ -1,0 +1,60 @@
+{
+	"app": {
+		"title": "🎮 Fusionador de Configuración CYBERBOARD",
+		"subtitle": "Fusiona y personaliza configuraciones LED para CYBERBOARD R2 y superiores"
+	},
+	"steps": {
+		"selectBase": "1. Seleccionar Base",
+		"configureMappings": "2. Configurar Mapeos",
+		"review": "3. Revisar",
+		"complete": "4. Completar"
+	},
+	"fileSelector": {
+		"selectBaseTitle": "Seleccionar Configuración Base",
+		"selectJsonFile": "Seleccionar Archivo JSON",
+		"selected": "Seleccionado: {{fileName}}"
+	},
+	"ledPreview": {
+		"ledPreview": "Vista Previa LED {{number}}",
+		"preview": "Vista Previa"
+	},
+	"buttons": {
+		"reselectFile": "Reseleccionar Archivo",
+		"proceed": "Continuar",
+		"backToMapping": "Volver al Mapeo",
+		"saveConfiguration": "Guardar Configuración",
+		"createAnother": "Crear Otra Configuración",
+		"addFile": "+ Añadir Archivo",
+		"dismiss": "Cerrar",
+		"back": "Atrás",
+		"continueToReview": "Continuar a Revisión"
+	},
+	"slotMapper": {
+		"addFileFor": "Añadir archivo de configuración para LED {{ledNumber}}",
+		"configurationComplete": "Configuración Completa",
+		"proceedToReview": "Proceder a Revisión",
+		"description": "Añade archivos de configuración para cada ranura LED.",
+		"frameLimit": "Cada configuración puede añadir hasta 300 fotogramas."
+	},
+	"ledSlot": {
+		"ledTitle": "Ranura LED {{number}}"
+	},
+	"review": {
+		"title": "Revisar Configuración"
+	},
+	"complete": {
+		"success": "✅ ¡Configuración guardada exitosamente!",
+		"message": "La configuración fusionada ha sido guardada."
+	},
+	"errors": {
+		"noFileContent": "Contenido de archivo no proporcionado en versión web",
+		"failedToLoad": "Error al cargar configuración: {{error}}",
+		"failedToSave": "Error al guardar configuración: {{error}}"
+	},
+	"loading": {
+		"processing": "Procesando..."
+	},
+	"warnings": {
+		"frameExceedsLimit": "⚠️ El número de fotogramas ({{count}}) excede el límite máximo de 300"
+	}
+}

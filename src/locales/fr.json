@@ -1,0 +1,60 @@
+{
+	"app": {
+		"title": "🎮 Fusionneur de Configuration CYBERBOARD",
+		"subtitle": "Fusionnez et personnalisez les configurations LED pour CYBERBOARD R2 et supérieur"
+	},
+	"steps": {
+		"selectBase": "1. Sélection Base",
+		"configureMappings": "2. Configuration Mappages",
+		"review": "3. Révision",
+		"complete": "4. Terminé"
+	},
+	"fileSelector": {
+		"selectBaseTitle": "Sélectionner la Configuration de Base",
+		"selectJsonFile": "Sélectionner Fichier JSON",
+		"selected": "Sélectionné : {{fileName}}"
+	},
+	"ledPreview": {
+		"ledPreview": "Aperçu LED {{number}}",
+		"preview": "Aperçu"
+	},
+	"buttons": {
+		"reselectFile": "Resélectionner Fichier",
+		"proceed": "Continuer",
+		"backToMapping": "Retour au Mappage",
+		"saveConfiguration": "Enregistrer Configuration",
+		"createAnother": "Créer une Autre Configuration",
+		"addFile": "+ Ajouter Fichier",
+		"dismiss": "Fermer",
+		"back": "Retour",
+		"continueToReview": "Continuer à la Révision"
+	},
+	"slotMapper": {
+		"addFileFor": "Ajouter un fichier de configuration pour LED {{ledNumber}}",
+		"configurationComplete": "Configuration Terminée",
+		"proceedToReview": "Passer à la Révision",
+		"description": "Ajoutez des fichiers de configuration pour chaque emplacement LED.",
+		"frameLimit": "Chaque configuration peut ajouter jusqu'à 300 images."
+	},
+	"ledSlot": {
+		"ledTitle": "Emplacement LED {{number}}"
+	},
+	"review": {
+		"title": "Réviser la Configuration"
+	},
+	"complete": {
+		"success": "✅ Configuration enregistrée avec succès !",
+		"message": "La configuration fusionnée a été enregistrée."
+	},
+	"errors": {
+		"noFileContent": "Contenu du fichier non fourni dans la version web",
+		"failedToLoad": "Échec du chargement de la configuration : {{error}}",
+		"failedToSave": "Échec de l'enregistrement de la configuration : {{error}}"
+	},
+	"loading": {
+		"processing": "Traitement en cours..."
+	},
+	"warnings": {
+		"frameExceedsLimit": "⚠️ Le nombre d'images ({{count}}) dépasse la limite maximale de 300"
+	}
+}

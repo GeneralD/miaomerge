@@ -1,0 +1,60 @@
+{
+	"app": {
+		"title": "🎮 Trộn Cấu Hình CYBERBOARD",
+		"subtitle": "Hợp nhất và tùy chỉnh cấu hình LED cho CYBERBOARD R2 trở lên"
+	},
+	"steps": {
+		"selectBase": "1. Chọn Cơ Sở",
+		"configureMappings": "2. Cấu Hình Ánh Xạ",
+		"review": "3. Xem Xét",
+		"complete": "4. Hoàn Thành"
+	},
+	"fileSelector": {
+		"selectBaseTitle": "Chọn Cấu Hình Cơ Sở",
+		"selectJsonFile": "Chọn Tệp JSON",
+		"selected": "Đã chọn: {{fileName}}"
+	},
+	"ledPreview": {
+		"ledPreview": "Xem Trước LED {{number}}",
+		"preview": "Xem Trước"
+	},
+	"buttons": {
+		"reselectFile": "Chọn Lại Tệp",
+		"proceed": "Tiếp Tục",
+		"backToMapping": "Quay Lại Ánh Xạ",
+		"saveConfiguration": "Lưu Cấu Hình",
+		"createAnother": "Tạo Cấu Hình Khác",
+		"addFile": "+ Thêm Tệp",
+		"dismiss": "Đóng",
+		"back": "Quay Lại",
+		"continueToReview": "Tiếp Tục Xem Xét"
+	},
+	"slotMapper": {
+		"addFileFor": "Thêm tệp cấu hình cho LED {{ledNumber}}",
+		"configurationComplete": "Cấu Hình Hoàn Tất",
+		"proceedToReview": "Tiến Hành Xem Xét",
+		"description": "Thêm tệp cấu hình cho mỗi khe LED.",
+		"frameLimit": "Mỗi cấu hình có thể thêm tối đa 300 khung hình."
+	},
+	"ledSlot": {
+		"ledTitle": "Khe LED {{number}}"
+	},
+	"review": {
+		"title": "Xem Xét Cấu Hình"
+	},
+	"complete": {
+		"success": "✅ Cấu hình đã được lưu thành công!",
+		"message": "Cấu hình hợp nhất đã được lưu."
+	},
+	"errors": {
+		"noFileContent": "Nội dung tệp không được cung cấp trong phiên bản web",
+		"failedToLoad": "Không thể tải cấu hình: {{error}}",
+		"failedToSave": "Không thể lưu cấu hình: {{error}}"
+	},
+	"loading": {
+		"processing": "Đang xử lý..."
+	},
+	"warnings": {
+		"frameExceedsLimit": "⚠️ Số lượng khung hình ({{count}}) vượt quá giới hạn tối đa 300"
+	}
+}

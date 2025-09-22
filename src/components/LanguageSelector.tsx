@@ -6,7 +6,17 @@ export function LanguageSelector() {
 	const languages = [
 		{ code: "en", label: "🇺🇸 English" },
 		{ code: "ja", label: "🇯🇵 日本語" },
+		{ code: "ko", label: "🇰🇷 한국어" },
 		{ code: "zh", label: "🇨🇳 中文" },
+		{ code: "th", label: "🇹🇭 ไทย" },
+		{ code: "vi", label: "🇻🇳 Tiếng Việt" },
+		{ code: "id", label: "🇮🇩 Indonesia" },
+		{ code: "es", label: "🇪🇸 Español" },
+		{ code: "fr", label: "🇫🇷 Français" },
+		{ code: "de", label: "🇩🇪 Deutsch" },
+		{ code: "ru", label: "🇷🇺 Русский" },
+		{ code: "pt", label: "🇵🇹 Português" },
+		{ code: "ar", label: "🇦🇪 العربية" },
 	]
 
 	const handleLanguageChange = (languageCode: string) => {

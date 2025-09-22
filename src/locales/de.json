@@ -1,0 +1,60 @@
+{
+	"app": {
+		"title": "🎮 CYBERBOARD Konfigurations-Merger",
+		"subtitle": "LED-Konfigurationen für CYBERBOARD R2 und höher zusammenführen und anpassen"
+	},
+	"steps": {
+		"selectBase": "1. Basis Wählen",
+		"configureMappings": "2. Zuordnungen Konfigurieren",
+		"review": "3. Überprüfen",
+		"complete": "4. Fertig"
+	},
+	"fileSelector": {
+		"selectBaseTitle": "Basiskonfiguration Wählen",
+		"selectJsonFile": "JSON-Datei Wählen",
+		"selected": "Ausgewählt: {{fileName}}"
+	},
+	"ledPreview": {
+		"ledPreview": "LED {{number}} Vorschau",
+		"preview": "Vorschau"
+	},
+	"buttons": {
+		"reselectFile": "Datei Neu Wählen",
+		"proceed": "Fortfahren",
+		"backToMapping": "Zurück zur Zuordnung",
+		"saveConfiguration": "Konfiguration Speichern",
+		"createAnother": "Weitere Konfiguration Erstellen",
+		"addFile": "+ Datei Hinzufügen",
+		"dismiss": "Schließen",
+		"back": "Zurück",
+		"continueToReview": "Zur Überprüfung Fortfahren"
+	},
+	"slotMapper": {
+		"addFileFor": "Konfigurationsdatei für LED {{ledNumber}} hinzufügen",
+		"configurationComplete": "Konfiguration Abgeschlossen",
+		"proceedToReview": "Zur Überprüfung Gehen",
+		"description": "Fügen Sie Konfigurationsdateien für jeden LED-Steckplatz hinzu.",
+		"frameLimit": "Jede Konfiguration kann bis zu 300 Frames hinzufügen."
+	},
+	"ledSlot": {
+		"ledTitle": "LED-Steckplatz {{number}}"
+	},
+	"review": {
+		"title": "Konfiguration Überprüfen"
+	},
+	"complete": {
+		"success": "✅ Konfiguration erfolgreich gespeichert!",
+		"message": "Die zusammengeführte Konfiguration wurde gespeichert."
+	},
+	"errors": {
+		"noFileContent": "Dateiinhalt nicht in Webversion bereitgestellt",
+		"failedToLoad": "Fehler beim Laden der Konfiguration: {{error}}",
+		"failedToSave": "Fehler beim Speichern der Konfiguration: {{error}}"
+	},
+	"loading": {
+		"processing": "Verarbeitung läuft..."
+	},
+	"warnings": {
+		"frameExceedsLimit": "⚠️ Die Anzahl der Frames ({{count}}) überschreitet das Maximum von 300"
+	}
+}

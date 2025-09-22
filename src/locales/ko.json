@@ -1,0 +1,60 @@
+{
+	"app": {
+		"title": "🎮 사이버보드 설정 병합기",
+		"subtitle": "CYBERBOARD R2 이상 LED 설정을 병합 및 사용자 정의"
+	},
+	"steps": {
+		"selectBase": "1. 기본 선택",
+		"configureMappings": "2. 매핑 설정",
+		"review": "3. 검토",
+		"complete": "4. 완료"
+	},
+	"fileSelector": {
+		"selectBaseTitle": "기본 구성 선택",
+		"selectJsonFile": "JSON 파일 선택",
+		"selected": "선택됨: {{fileName}}"
+	},
+	"ledPreview": {
+		"ledPreview": "LED {{number}} 미리보기",
+		"preview": "미리보기"
+	},
+	"buttons": {
+		"reselectFile": "파일 다시 선택",
+		"proceed": "다음으로 진행",
+		"backToMapping": "매핑으로 돌아가기",
+		"saveConfiguration": "구성 저장",
+		"createAnother": "다른 구성 생성",
+		"addFile": "+ 파일 추가",
+		"dismiss": "닫기",
+		"back": "뒤로",
+		"continueToReview": "검토 진행"
+	},
+	"slotMapper": {
+		"addFileFor": "LED {{ledNumber}}에 구성 파일 추가",
+		"configurationComplete": "구성 완료",
+		"proceedToReview": "검토로 진행",
+		"description": "각 LED 슬롯에 구성 파일을 추가해주세요.",
+		"frameLimit": "각 구성마다 최대 300개의 프레임을 추가할 수 있습니다."
+	},
+	"ledSlot": {
+		"ledTitle": "LED 슬롯 {{number}}"
+	},
+	"review": {
+		"title": "구성 검토"
+	},
+	"complete": {
+		"success": "✅ 구성이 성공적으로 저장되었습니다!",
+		"message": "병합된 구성이 저장되었습니다."
+	},
+	"errors": {
+		"noFileContent": "웹 버전에서 파일 내용이 제공되지 않음",
+		"failedToLoad": "구성 로드 실패: {{error}}",
+		"failedToSave": "구성 저장 실패: {{error}}"
+	},
+	"loading": {
+		"processing": "처리 중..."
+	},
+	"warnings": {
+		"frameExceedsLimit": "⚠️ 프레임 수({{count}})가 최대 한도 300을 초과했습니다"
+	}
+}

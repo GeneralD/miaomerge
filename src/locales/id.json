@@ -1,0 +1,60 @@
+{
+	"app": {
+		"title": "🎮 Penggabung Konfigurasi CYBERBOARD",
+		"subtitle": "Gabungkan dan sesuaikan konfigurasi LED untuk CYBERBOARD R2 ke atas"
+	},
+	"steps": {
+		"selectBase": "1. Pilih Dasar",
+		"configureMappings": "2. Atur Pemetaan",
+		"review": "3. Tinjau",
+		"complete": "4. Selesai"
+	},
+	"fileSelector": {
+		"selectBaseTitle": "Pilih Konfigurasi Dasar",
+		"selectJsonFile": "Pilih File JSON",
+		"selected": "Dipilih: {{fileName}}"
+	},
+	"ledPreview": {
+		"ledPreview": "Pratinjau LED {{number}}",
+		"preview": "Pratinjau"
+	},
+	"buttons": {
+		"reselectFile": "Pilih Ulang File",
+		"proceed": "Lanjutkan",
+		"backToMapping": "Kembali ke Pemetaan",
+		"saveConfiguration": "Simpan Konfigurasi",
+		"createAnother": "Buat Konfigurasi Lain",
+		"addFile": "+ Tambah File",
+		"dismiss": "Tutup",
+		"back": "Kembali",
+		"continueToReview": "Lanjut ke Tinjauan"
+	},
+	"slotMapper": {
+		"addFileFor": "Tambahkan file konfigurasi untuk LED {{ledNumber}}",
+		"configurationComplete": "Konfigurasi Selesai",
+		"proceedToReview": "Lanjut ke Tinjauan",
+		"description": "Tambahkan file konfigurasi untuk setiap slot LED.",
+		"frameLimit": "Setiap konfigurasi dapat menambahkan maksimal 300 frame."
+	},
+	"ledSlot": {
+		"ledTitle": "Slot LED {{number}}"
+	},
+	"review": {
+		"title": "Tinjau Konfigurasi"
+	},
+	"complete": {
+		"success": "✅ Konfigurasi berhasil disimpan!",
+		"message": "Konfigurasi gabungan telah disimpan."
+	},
+	"errors": {
+		"noFileContent": "Konten file tidak disediakan dalam versi web",
+		"failedToLoad": "Gagal memuat konfigurasi: {{error}}",
+		"failedToSave": "Gagal menyimpan konfigurasi: {{error}}"
+	},
+	"loading": {
+		"processing": "Memproses..."
+	},
+	"warnings": {
+		"frameExceedsLimit": "⚠️ Jumlah frame ({{count}}) melebihi batas maksimal 300"
+	}
+}

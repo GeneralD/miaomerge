@@ -1,0 +1,60 @@
+{
+	"app": {
+		"title": "🎮 Fusionador de Configuração CYBERBOARD",
+		"subtitle": "Fundir e personalizar configurações LED para CYBERBOARD R2 e superior"
+	},
+	"steps": {
+		"selectBase": "1. Selecionar Base",
+		"configureMappings": "2. Configurar Mapeamentos",
+		"review": "3. Revisar",
+		"complete": "4. Concluir"
+	},
+	"fileSelector": {
+		"selectBaseTitle": "Selecionar Configuração Base",
+		"selectJsonFile": "Selecionar Arquivo JSON",
+		"selected": "Selecionado: {{fileName}}"
+	},
+	"ledPreview": {
+		"ledPreview": "Pré-visualização LED {{number}}",
+		"preview": "Pré-visualização"
+	},
+	"buttons": {
+		"reselectFile": "Reselecionar Arquivo",
+		"proceed": "Prosseguir",
+		"backToMapping": "Voltar ao Mapeamento",
+		"saveConfiguration": "Salvar Configuração",
+		"createAnother": "Criar Outra Configuração",
+		"addFile": "+ Adicionar Arquivo",
+		"dismiss": "Fechar",
+		"back": "Voltar",
+		"continueToReview": "Continuar para Revisão"
+	},
+	"slotMapper": {
+		"addFileFor": "Adicionar arquivo de configuração para LED {{ledNumber}}",
+		"configurationComplete": "Configuração Completa",
+		"proceedToReview": "Prosseguir para Revisão",
+		"description": "Adicione arquivos de configuração para cada slot LED.",
+		"frameLimit": "Cada configuração pode adicionar até 300 quadros."
+	},
+	"ledSlot": {
+		"ledTitle": "Slot LED {{number}}"
+	},
+	"review": {
+		"title": "Revisar Configuração"
+	},
+	"complete": {
+		"success": "✅ Configuração salva com sucesso!",
+		"message": "A configuração fundida foi salva."
+	},
+	"errors": {
+		"noFileContent": "Conteúdo do arquivo não fornecido na versão web",
+		"failedToLoad": "Falha ao carregar configuração: {{error}}",
+		"failedToSave": "Falha ao salvar configuração: {{error}}"
+	},
+	"loading": {
+		"processing": "Processando..."
+	},
+	"warnings": {
+		"frameExceedsLimit": "⚠️ O número de quadros ({{count}}) excede o limite máximo de 300"
+	}
+}
